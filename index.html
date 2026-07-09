@@ -417,7 +417,7 @@
     <!-- Main Content -->
     <main class="container">
         <header>
-            <h1>PIXEL CRAFT</h1>
+            <h1>UNTREATED PIXELS</h1>
         </header>
 
         <p class="subtitle">
@@ -451,26 +451,11 @@
                 </div>
             </div>
         </section>
-
-        <form class="notify-form" id="notifyForm">
-            <label class="form-label" for="emailInput">ENTER EMAIL TO JOIN THE GUILD</label>
-            <div class="input-group">
-                <input type="email" id="emailInput" placeholder="hero@pixelcraft.com" required autocomplete="email">
-                <button type="submit">PRESS START</button>
-            </div>
-            <div class="form-message" id="formMessage"></div>
-        </form>
-
-        <nav class="socials">
-            <a href="#" target="_blank" rel="noopener">TWITTER</a>
-            <a href="#" target="_blank" rel="noopener">INSTAGRAM</a>
-            <a href="#" target="_blank" rel="noopener">ARTSTATION</a>
-            <a href="#" target="_blank" rel="noopener">ITCH.IO</a>
-        </nav>
+		
     </main>
 
     <footer>
-        <p>&copy; 2026 PIXEL CRAFT STUDIOS. ALL RIGHTS RESERVED.</p>
+        <p>&copy; 2026 UNTREATED PIXELS. ALL RIGHTS RESERVED.</p>
     </footer>
 
     <script>
@@ -500,33 +485,6 @@
 
         updateCountdown();
         setInterval(updateCountdown, 1000);
-
-        // --- FORM HANDLING ---
-        const form = document.getElementById('notifyForm');
-        const emailInput = document.getElementById('emailInput');
-        const formMessage = document.getElementById('formMessage');
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = emailInput.value.trim();
-            
-            // Simple email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            
-            if (emailRegex.test(email)) {
-                formMessage.textContent = '> SUBSCRIBED! CHECK YOUR INBOX FOR LOOT.';
-                formMessage.classList.remove('error');
-                emailInput.value = '';
-                
-                // Reset message after 5 seconds
-                setTimeout(() => {
-                    formMessage.textContent = '';
-                }, 5000);
-            } else {
-                formMessage.textContent = '> ERROR: INVALID EMAIL FORMAT.';
-                formMessage.classList.add('error');
-            }
-        });
 
         // --- FLOATING PIXEL PARTICLES ---
         const particleCount = 25;
