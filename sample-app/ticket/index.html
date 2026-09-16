@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0d9488">
+<title>TiketKu Wisata</title>
+<style>
+:root {
+    --primary: #0d9488;
+    --primary-dark: #0f766e;
+    --primary-light: #99f6e4;
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --surface-alt: #f1f5f9;
+    --text: #1e293b;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    --border: #e2e8f0;
+    --border-dark: #cbd5e1;
+    --danger: #dc2626;
+    --danger-light: #fef2f2;
+    --success: #16a34a;
+    --success-light: #f0fdf4;
+    --warning: #d97706;
+    --warning-light: #fffbeb;
+    --info: #2563eb;
+    --info-light: #eff6ff;
+    --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    --radius: 8px;
+    --radius-lg: 12px;
+    --header-height: 56px;
+    --sidebar-width: 240px;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+[data-theme="dark"] {
+    --primary: #14b8a6;
+    --primary-dark: #0d9488;
+    --primary-light: #134e4a;
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --surface-alt: #334155;
+    --text: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border: #334155;
+    --border-dark: #475569;
+    --danger: #ef4444;
+    --danger-light: #450a0a;
+    --success: #22c55e;
+    --success-light: #052e16;
+    --warning: #f59e0b;
+    --warning-light: #451a03;
+    --info: #3b82f6;
+    --info-light: #172554;
+    --shadow: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.3);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-dark); border-radius: 3px; }
+
+.login-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+}
+
+.login-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 40px 32px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: var(--shadow-lg);
+}
+
+.login-logo {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    background: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.login-logo img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
+.login-title { text-align: center; font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.login-version { text-align: center; font-size: 13px; color: var(--text-muted); margin-bottom: 32px; }
+
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
+
+.form-control {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 15px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--text);
+    transition: border-color 0.2s;
+    font-family: var(--font);
+}
+
+.form-control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(13,148,136,0.1); }
+
+select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+
+textarea.form-control { resize: vertical; min-height: 80px; }
+.form-error { font-size: 13px; color: var(--danger); margin-top: 4px; display: none; }
+.form-error.show { display: block; }
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover:not(:disabled) { background: var(--primary-dark); }
+.btn-secondary { background: var(--surface-alt); color: var(--text); border: 1.5px solid var(--border); }
+.btn-secondary:hover:not(:disabled) { background: var(--border); }
+.btn-danger { background: var(--danger); color: white; }
+.btn-danger:hover:not(:disabled) { background: #b91c1c; }
+.btn-success { background: var(--success); color: white; }
+.btn-sm { padding: 6px 12px; font-size: 13px; }
+.btn-block { width: 100%; }
+
+.app-container { display: none; min-height: 100vh; }
+.app-container.active { display: flex; flex-direction: column; }
+
+.app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    z-index: 100;
+    box-shadow: var(--shadow);
+    gap: 8px;
+}
+
+.hamburger-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 8px;
+    border-radius: var(--radius);
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.hamburger-btn:hover { background: var(--surface-alt); }
+.hamburger-btn span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
+
+.header-title { font-size: 17px; font-weight: 700; color: var(--primary); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.header-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.header-user { display: none; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary); }
+.header-user-name { font-weight: 600; color: var(--text); }
+
+.theme-toggle {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: var(--surface-alt);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+.drawer-overlay.active { opacity: 1; visibility: visible; }
+
+.drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    max-width: 85vw;
+    background: var(--surface);
+    z-index: 201;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+
+.drawer.active { transform: translateX(0); }
+
+.drawer-header { padding: 20px 16px; background: linear-gradient(135deg, var(--primary-dark), var(--primary)); color: white; flex-shrink: 0; }
+
+.drawer-logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    overflow: hidden;
+}
+
+.drawer-logo img { width: 100%; height: 100%; object-fit: cover; }
+.drawer-app-name { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+.drawer-user-info { font-size: 13px; opacity: 0.9; }
+
+.drawer-user-role {
+    display: inline-block;
+    padding: 2px 8px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+    font-size: 11px;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.drawer-body { flex: 1; overflow-y: auto; padding: 8px; -webkit-overflow-scrolling: touch; }
+
+.drawer-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 14px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 500;
+    font-family: var(--font);
+    text-align: left;
+    border-radius: var(--radius);
+    transition: background 0.2s, color 0.2s;
+    margin-bottom: 2px;
+    min-height: 44px;
+}
+
+.drawer-nav-item:hover { background: var(--surface-alt); }
+
+.drawer-nav-item.active { background: var(--primary-light); color: var(--primary-dark); font-weight: 600; }
+[data-theme="dark"] .drawer-nav-item.active { color: var(--primary); }
+.drawer-nav-item svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+.drawer-nav-item.logout {
+    color: var(--danger);
+    margin-top: 8px;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+    border-radius: 0 0 var(--radius) var(--radius);
+}
+
+.drawer-footer { padding: 12px 16px; border-top: 1px solid var(--border); font-size: 11px; color: var(--text-muted); text-align: center; flex-shrink: 0; }
+
+.desktop-sidebar { display: none; }
+
+.app-main { margin-top: var(--header-height); padding: 16px; flex: 1; max-width: 1200px; width: 100%; margin-left: auto; margin-right: auto; }
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 16px; box-shadow: var(--shadow); }
+.card-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px; }
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 12px; text-align: center; }
+.stat-value { font-size: 20px; font-weight: 700; color: var(--primary); word-break: break-word; }
+.stat-label { font-size: 11px; color: var(--text-secondary); margin-top: 4px; }
+
+.table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border); border-radius: var(--radius); }
+table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 600px; }
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+th { background: var(--surface-alt); font-weight: 600; color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; position: sticky; top: 0; }
+tr:hover td { background: var(--surface-alt); }
+
+.badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.badge-success { background: var(--success-light); color: var(--success); }
+.badge-danger { background: var(--danger-light); color: var(--danger); }
+.badge-warning { background: var(--warning-light); color: var(--warning); }
+.badge-info { background: var(--info-light); color: var(--info); }
+
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 300; padding: 16px; opacity: 0; visibility: hidden; transition: all 0.2s; }
+.modal-overlay.active { opacity: 1; visibility: visible; }
+.modal { background: var(--surface); border-radius: var(--radius-lg); width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-lg); transform: scale(0.95); transition: transform 0.2s; }
+.modal-overlay.active .modal { transform: scale(1); }
+.modal-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+.modal-title { font-size: 18px; font-weight: 700; }
+.modal-close { width: 32px; height: 32px; border: none; background: var(--surface-alt); border-radius: 50%; cursor: pointer; font-size: 18px; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; }
+.modal-body { padding: 20px; }
+.modal-footer { display: flex; gap: 8px; justify-content: flex-end; padding: 16px 20px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+
+.alert { padding: 12px 16px; border-radius: var(--radius); margin-bottom: 16px; font-size: 14px; display: flex; align-items: flex-start; gap: 10px; }
+.alert-warning { background: var(--warning-light); color: var(--warning); border: 1px solid var(--warning); }
+.alert-info { background: var(--info-light); color: var(--info); border: 1px solid var(--info); }
+.alert-success { background: var(--success-light); color: var(--success); border: 1px solid var(--success); }
+.alert-danger { background: var(--danger-light); color: var(--danger); border: 1px solid var(--danger); }
+
+.toast-container { position: fixed; top: 70px; right: 16px; left: 16px; z-index: 500; display: flex; flex-direction: column; gap: 8px; align-items: flex-end; pointer-events: none; }
+.toast { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 20px; box-shadow: var(--shadow-lg); font-size: 14px; animation: slideIn 0.3s ease; max-width: 100%; pointer-events: auto; }
+.toast.success { border-left: 4px solid var(--success); }
+.toast.error { border-left: 4px solid var(--danger); }
+.toast.info { border-left: 4px solid var(--info); }
+@keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+.transaction-form { max-width: 600px; }
+
+.calc-display { background: var(--surface-alt); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 16px; }
+.calc-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; gap: 8px; }
+.calc-row.total { border-top: 2px solid var(--border); margin-top: 8px; padding-top: 12px; font-size: 18px; font-weight: 700; color: var(--primary); }
+.calc-row.change { color: var(--success); font-weight: 600; }
+
+.ticket-items { margin-bottom: 16px; }
+
+.ticket-item {
+    display: grid;
+    grid-template-columns: 1fr 80px 100px 36px;
+    gap: 8px;
+    align-items: end;
+    margin-bottom: 8px;
+    padding: 12px;
+    background: var(--surface-alt);
+    border-radius: var(--radius);
+}
+
+@media (max-width: 480px) {
+    .ticket-item { grid-template-columns: 1fr 60px 36px; }
+    .ticket-item .item-price { display: none; }
+}
+
+.ticket-item select,
+.ticket-item input { padding: 8px; font-size: 14px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); color: var(--text); min-width: 0; }
+
+.remove-item-btn { width: 36px; height: 36px; border: none; background: var(--danger-light); color: var(--danger); border-radius: 6px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; }
+
+.filter-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.filter-bar .form-control { width: auto; min-width: 140px; flex: 1 1 140px; }
+
+.tabs { display: flex; gap: 4px; border-bottom: 2px solid var(--border); margin-bottom: 16px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.tab { padding: 10px 16px; border: none; background: none; cursor: pointer; font-size: 14px; font-weight: 500; color: var(--text-muted); border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; font-family: var(--font); }
+.tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+.settings-section { margin-bottom: 24px; }
+.settings-section h3 { font-size: 15px; font-weight: 700; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+.toggle-switch { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.toggle-switch label { font-size: 14px; flex: 1; }
+.switch { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.switch-slider { position: absolute; inset: 0; background: var(--border-dark); border-radius: 12px; cursor: pointer; transition: 0.2s; }
+.switch-slider:before { content: ''; position: absolute; width: 18px; height: 18px; border-radius: 50%; background: white; top: 3px; left: 3px; transition: 0.2s; }
+.switch input:checked + .switch-slider { background: var(--primary); }
+.switch input:checked + .switch-slider:before { transform: translateX(20px); }
+
+.ticket-preview { background: white; color: #000; padding: 16px; font-family: 'Courier New', monospace; border: 2px dashed var(--border-dark); border-radius: var(--radius); max-width: 320px; margin: 0 auto; font-size: 12px; line-height: 1.6; }
+.ticket-preview .tp-center { text-align: center; }
+.ticket-preview .tp-bold { font-weight: 700; }
+.ticket-preview .tp-line { border-top: 1px dashed #000; margin: 8px 0; }
+.ticket-preview .tp-double-line { border-top: 2px solid #000; margin: 8px 0; }
+.ticket-preview .tp-row { display: flex; justify-content: space-between; }
+.ticket-preview .tp-logo { max-width: 80px; max-height: 80px; margin: 0 auto 8px; display: block; }
+
+.chart-container { width: 100%; height: 200px; position: relative; }
+.bar-chart { display: flex; align-items: flex-end; gap: 4px; height: 160px; padding: 0 4px; border-bottom: 1px solid var(--border); }
+.bar-chart .bar { flex: 1; background: var(--primary); border-radius: 3px 3px 0 0; min-width: 20px; position: relative; transition: height 0.3s; }
+.bar-chart .bar-label { position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); font-size: 10px; color: var(--text-muted); white-space: nowrap; }
+
+.spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.page { display: none; }
+.page.active { display: block; }
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+.page-title { font-size: 20px; font-weight: 700; }
+
+@media (max-width: 767px) {
+    .table-cards .table-wrapper { border: none; }
+    .table-cards table { min-width: 0; }
+    .table-cards thead { display: none; }
+    .table-cards tbody tr { display: block; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 8px; padding: 12px; }
+    .table-cards td { display: flex; justify-content: space-between; border: none; padding: 4px 0; white-space: normal; font-size: 13px; gap: 8px; }
+    .table-cards td:before { content: attr(data-label); font-weight: 600; color: var(--text-secondary); margin-right: 12px; flex-shrink: 0; }
+}
+
+.logo-upload-area { border: 2px dashed var(--border); border-radius: var(--radius); padding: 24px; text-align: center; cursor: pointer; transition: border-color 0.2s; }
+.logo-upload-area:hover { border-color: var(--primary); }
+.logo-upload-area img { max-width: 120px; max-height: 120px; margin-bottom: 8px; }
+
+.summary-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.summary-table th, .summary-table td { padding: 8px 12px; border: 1px solid var(--border); white-space: nowrap; }
+.summary-table th { background: var(--surface-alt); font-weight: 600; }
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-muted { color: var(--text-muted); }
+.text-sm { font-size: 13px; }
+.mt-2 { margin-top: 8px; }
+.mt-4 { margin-top: 16px; }
+.mb-2 { margin-bottom: 8px; }
+.mb-4 { margin-bottom: 16px; }
+.flex { display: flex; }
+.flex-wrap { flex-wrap: wrap; }
+.gap-2 { gap: 8px; }
+.gap-3 { gap: 12px; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.hidden { display: none !important; }
+
+@media (min-width: 768px) {
+    .hamburger-btn { display: none; }
+    .header-user { display: flex; }
+    .header-title { font-size: 18px; }
+    .app-header { padding: 0 20px; }
+    .desktop-sidebar { display: flex; flex-direction: column; position: fixed; left: 0; top: var(--header-height); bottom: 0; width: var(--sidebar-width); background: var(--surface); border-right: 1px solid var(--border); z-index: 50; overflow-y: auto; }
+    .desktop-sidebar-header { padding: 16px; border-bottom: 1px solid var(--border); }
+    .desktop-sidebar-user { font-size: 13px; color: var(--text-secondary); }
+    .desktop-sidebar-user-name { font-weight: 600; color: var(--text); font-size: 14px; }
+    .desktop-sidebar-nav { flex: 1; padding: 8px; overflow-y: auto; }
+    .desktop-sidebar-footer { padding: 12px; border-top: 1px solid var(--border); font-size: 11px; color: var(--text-muted); text-align: center; }
+    .app-main { margin-left: var(--sidebar-width); padding: 24px; }
+    .stats-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+    .stat-value { font-size: 22px; }
+    .stat-label { font-size: 12px; }
+}
+
+@media (min-width: 1024px) { .page-title { font-size: 22px; } }
+
+@media print {
+    .app-header, .drawer, .drawer-overlay, .desktop-sidebar, .toast-container, .modal-overlay, .no-print, .thermal-print { display: none !important; }
+    .app-container { display: block !important; }
+    .app-main { margin: 0 !important; padding: 10mm !important; max-width: 100% !important; }
+    .card { box-shadow: none !important; border: 1px solid #ddd !important; page-break-inside: avoid; }
+    body { background: white !important; color: black !important; }
+    table { page-break-inside: auto; }
+    tr { page-break-inside: avoid; page-break-after: auto; }
+    thead { display: table-header-group; }
+}
+
+@media print {
+    body.thermal-printing { background: white !important; }
+    body.thermal-printing .login-screen, body.thermal-printing .app-container, body.thermal-printing .modal-overlay, body.thermal-printing .toast-container, body.thermal-printing .drawer, body.thermal-printing .drawer-overlay, body.thermal-printing .desktop-sidebar { display: none !important; }
+    body.thermal-printing .thermal-print { display: block !important; position: absolute !important; left: 0 !important; top: 0 !important; width: 58mm !important; padding: 2mm !important; margin: 0 !important; font-family: 'Courier New', monospace !important; font-size: 11px !important; line-height: 1.4 !important; color: #000 !important; background: #fff !important; }
+    body.thermal-printing .thermal-print.width-80 { width: 80mm !important; }
+    body.thermal-printing .thermal-print * { color: #000 !important; background: transparent !important; }
+}
+
+@media screen { .thermal-print { display: none; } }
+</style>
+</head>
+<body>
+
+<div id="loginScreen" class="login-screen">
+    <div class="login-card">
+        <div class="login-logo" id="loginLogo">T</div>
+        <h1 class="login-title" id="loginTitle">TiketKu Wisata</h1>
+        <p class="login-version" id="loginVersion">v1.0.0</p>
+        <div id="loginAlert" class="alert alert-danger hidden"></div>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="loginUsername">Username</label>
+                <input type="text" id="loginUsername" class="form-control" placeholder="Masukkan username" autocomplete="username" required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" class="form-control" placeholder="Masukkan password" autocomplete="current-password" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
+                <span id="loginBtnText">Masuk</span>
+                <span id="loginBtnLoading" class="hidden"><span class="spinner" style="width:18px;height:18px;border-width:2px;"></span></span>
+            </button>
+        </form>
+    </div>
+</div>
+
+<div id="appContainer" class="app-container">
+    <header class="app-header">
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <span class="header-title" id="headerTitle">TiketKu Wisata</span>
+        <div class="header-right">
+            <div class="header-user"><span class="header-user-name" id="headerUserName"></span></div>
+            <button class="theme-toggle" id="themeToggleBtn" title="Ganti Tema">&#9789;</button>
+        </div>
+    </header>
+
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+
+    <aside class="drawer" id="drawer">
+        <div class="drawer-header">
+            <div class="drawer-logo" id="drawerLogo">T</div>
+            <div class="drawer-app-name" id="drawerAppName">TiketKu Wisata</div>
+            <div class="drawer-user-info" id="drawerUserName">Administrator</div>
+            <span class="drawer-user-role" id="drawerUserRole">Admin</span>
+        </div>
+        <div class="drawer-body" id="drawerBody"></div>
+        <div class="drawer-footer" id="drawerFooter">v1.0.0</div>
+    </aside>
+
+    <aside class="desktop-sidebar" id="desktopSidebar">
+        <div class="desktop-sidebar-header">
+            <div class="desktop-sidebar-user">
+                <div class="desktop-sidebar-user-name" id="sidebarUserName"></div>
+                <div id="sidebarUserRole" style="font-size:12px;margin-top:2px;"></div>
+            </div>
+        </div>
+        <nav class="desktop-sidebar-nav" id="sidebarNav"></nav>
+        <div class="desktop-sidebar-footer" id="sidebarFooter">v1.0.0</div>
+    </aside>
+
+    <main class="app-main" id="appMain">
+        <div id="pageDashboard" class="page">
+            <div class="page-header"><h1 class="page-title">Dashboard</h1></div>
+            <div id="defaultPasswordAlert" class="alert alert-warning hidden">Peringatan: Anda masih menggunakan password default. Segera ganti password Anda melalui menu Profil.</div>
+            <div class="stats-grid" id="dashboardStats"></div>
+            <div class="card"><div class="card-title">Penjualan 7 Hari Terakhir</div><div class="chart-container" id="dashboardChart"></div></div>
+            <div class="card"><div class="card-title">Kategori Terlaris</div><div id="topCategories"></div></div>
+        </div>
+
+        <div id="pageInputTicket" class="page">
+            <div class="page-header"><h1 class="page-title">Input Tiket</h1></div>
+            <div class="card transaction-form">
+                <div class="form-group">
+                    <label for="txVisitorName">Nama Pengunjung</label>
+                    <input type="text" id="txVisitorName" class="form-control" placeholder="Nama pengunjung">
+                </div>
+                <div class="form-group">
+                    <label for="txVisitorPhone">Nomor HP (Opsional)</label>
+                    <input type="tel" id="txVisitorPhone" class="form-control" placeholder="Nomor HP">
+                </div>
+                <label style="font-size:14px;font-weight:500;margin-bottom:8px;display:block;">Item Tiket</label>
+                <div id="ticketItems" class="ticket-items"></div>
+                <button class="btn btn-secondary btn-sm" id="addItemBtn">+ Tambah Item</button>
+
+                <div class="calc-display mt-4" id="calcDisplay">
+                    <div class="calc-row"><span>Subtotal</span><span id="calcSubtotal">Rp0</span></div>
+                    <div class="calc-row total"><span>Total</span><span id="calcTotal">Rp0</span></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="txAmountReceived">Uang Diterima</label>
+                    <input type="number" id="txAmountReceived" class="form-control" placeholder="0" min="0">
+                    <div class="form-error" id="amountError">Uang diterima kurang dari total</div>
+                </div>
+                <div class="calc-display">
+                    <div class="calc-row change"><span>Kembalian</span><span id="calcChange">Rp0</span></div>
+                </div>
+
+                <div class="flex gap-2 mt-4">
+                    <button class="btn btn-primary" id="saveAndPrintBtn" style="flex:1;">Simpan & Cetak</button>
+                    <button class="btn btn-secondary" id="saveOnlyBtn">Simpan</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="pageTransactions" class="page">
+            <div class="page-header"><h1 class="page-title">Transaksi</h1></div>
+            <div class="filter-bar">
+                <input type="date" id="txFilterDate" class="form-control">
+                <select id="txFilterStatus" class="form-control">
+                    <option value="">Semua Status</option>
+                    <option value="PAID">Lunas</option>
+                    <option value="CANCELLED">Dibatalkan</option>
+                </select>
+                <button class="btn btn-secondary btn-sm" id="txFilterResetBtn">Reset</button>
+            </div>
+            <div class="table-cards">
+                <div class="table-wrapper">
+                    <table id="transactionsTable">
+                        <thead><tr><th>No. Tiket</th><th>Tanggal</th><th>Pengunjung</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead>
+                        <tbody id="transactionsBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="pageReports" class="page">
+            <div class="page-header">
+                <h1 class="page-title">Laporan Penjualan</h1>
+                <button class="btn btn-secondary btn-sm no-print" id="printReportBtn">Cetak Laporan</button>
+            </div>
+            <div class="card no-print">
+                <div class="filter-bar">
+                    <select id="reportPeriod" class="form-control">
+                        <option value="today">Hari Ini</option>
+                        <option value="yesterday">Kemarin</option>
+                        <option value="7days" selected>7 Hari Terakhir</option>
+                        <option value="month">Bulan Ini</option>
+                        <option value="lastmonth">Bulan Lalu</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                    <input type="date" id="reportDateStart" class="form-control hidden">
+                    <input type="date" id="reportDateEnd" class="form-control hidden">
+                    <select id="reportCategory" class="form-control"><option value="">Semua Kategori</option></select>
+                    <select id="reportUser" class="form-control"><option value="">Semua Petugas</option></select>
+                    <button class="btn btn-primary btn-sm" id="applyReportBtn">Terapkan</button>
+                </div>
+            </div>
+            <div id="reportContent">
+                <div class="stats-grid" id="reportStats"></div>
+                <div class="card"><div class="card-title">Ringkasan Per Kategori</div><div class="table-wrapper"><table class="summary-table" id="reportCategorySummary"></table></div></div>
+                <div class="card"><div class="card-title">Ringkasan Per Petugas</div><div class="table-wrapper"><table class="summary-table" id="reportUserSummary"></table></div></div>
+                <div class="card">
+                    <div class="card-title">Detail Transaksi</div>
+                    <div class="table-cards">
+                        <div class="table-wrapper">
+                            <table>
+                                <thead><tr><th>No. Tiket</th><th>Tanggal</th><th>Pengunjung</th><th>Kategori</th><th>Jml</th><th>Total</th><th>Petugas</th><th>Status</th></tr></thead>
+                                <tbody id="reportTransactionsBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="pageCategories" class="page">
+            <div class="page-header"><h1 class="page-title">Kategori Tiket</h1><button class="btn btn-primary btn-sm" id="addCategoryBtn">+ Tambah</button></div>
+            <div class="table-cards"><div class="table-wrapper"><table><thead><tr><th>Nama</th><th>Harga</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="categoriesBody"></tbody></table></div></div>
+        </div>
+
+        <div id="pageUsers" class="page">
+            <div class="page-header"><h1 class="page-title">Pengguna</h1><button class="btn btn-primary btn-sm" id="addUserBtn">+ Tambah</button></div>
+            <div class="table-cards"><div class="table-wrapper"><table><thead><tr><th>Nama</th><th>Username</th><th>Role</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="usersBody"></tbody></table></div></div>
+        </div>
+
+        <div id="pageSettings" class="page">
+            <div class="page-header"><h1 class="page-title">Pengaturan</h1></div>
+            <div class="tabs no-print">
+                <button class="tab active" data-setting-tab="general">Umum</button>
+                <button class="tab" data-setting-tab="ticket">Desain Tiket</button>
+                <button class="tab" data-setting-tab="preview">Preview</button>
+            </div>
+
+            <div id="settingTabGeneral" class="settings-tab-content">
+                <div class="card">
+                    <div class="settings-section">
+                        <h3>Tema</h3>
+                        <div class="form-group"><select id="settingTheme" class="form-control"><option value="system">Ikuti Sistem</option><option value="light">Terang</option><option value="dark">Gelap</option></select></div>
+                    </div>
+                    <div class="settings-section">
+                        <h3>Format Nomor Tiket</h3>
+                        <div class="form-group"><label>Prefix</label><input type="text" id="settingPrefix" class="form-control" value="TKT"></div>
+                        <div class="form-group"><label>Separator</label><input type="text" id="settingSeparator" class="form-control" value="-" maxlength="3"></div>
+                        <div class="form-group"><label>Jumlah Digit Nomor</label><input type="number" id="settingDigits" class="form-control" value="4" min="3" max="8"></div>
+                    </div>
+                    <div class="settings-section">
+                        <h3>Ukuran Kertas Thermal</h3>
+                        <div class="form-group"><select id="settingPaperWidth" class="form-control"><option value="58mm">58 mm</option><option value="80mm">80 mm</option></select></div>
+                        <div class="alert alert-info text-sm">Pencetakan dilakukan melalui dialog cetak browser. Untuk printer thermal Bluetooth, pastikan printer sudah terhubung sebagai printer sistem di perangkat Android Anda.</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" id="saveSettingsBtn">Simpan Pengaturan</button>
+            </div>
+
+            <div id="settingTabTicket" class="settings-tab-content hidden">
+                <div class="card">
+                    <div class="settings-section">
+                        <h3>Logo</h3>
+                        <div class="logo-upload-area" id="logoUploadArea">
+                            <div id="logoPreviewContainer"><p class="text-muted text-sm">Klik untuk upload logo</p></div>
+                            <input type="file" id="logoInput" accept="image/*" style="display:none;">
+                        </div>
+                        <div class="flex gap-2 mt-2"><button class="btn btn-secondary btn-sm" id="removeLogoBtn">Hapus Logo</button></div>
+                    </div>
+                    <div class="settings-section">
+                        <h3>Header Tiket</h3>
+                        <div class="form-group"><label>Judul Tiket</label><input type="text" id="settingTicketTitle" class="form-control" value="TIKETKU WISATA"></div>
+                        <div class="form-group"><label>Nama Tempat Wisata</label><input type="text" id="settingPlaceName" class="form-control" value="Nama Tempat Wisata"></div>
+                        <div class="form-group"><label>Alamat</label><input type="text" id="settingAddress" class="form-control" value="Alamat Tempat Wisata"></div>
+                        <div class="form-group"><label>Telepon</label><input type="text" id="settingPhone" class="form-control" value=""></div>
+                        <div class="form-group"><label>Website</label><input type="text" id="settingWebsite" class="form-control" value=""></div>
+                    </div>
+                    <div class="settings-section">
+                        <h3>Footer Tiket</h3>
+                        <div class="form-group"><label>Teks Footer</label><textarea id="settingFooter" class="form-control">Terima kasih telah berkunjung
+Selamat menikmati</textarea></div>
+                    </div>
+                    <div class="settings-section">
+                        <h3>Tampilan Tiket</h3>
+                        <div class="toggle-switch"><label>Tampilkan Logo</label><div class="switch"><input type="checkbox" id="settingShowLogo" checked><span class="switch-slider"></span></div></div>
+                        <div class="toggle-switch"><label>Tampilkan Alamat</label><div class="switch"><input type="checkbox" id="settingShowAddress" checked><span class="switch-slider"></span></div></div>
+                        <div class="toggle-switch"><label>Tampilkan No. HP Pengunjung</label><div class="switch"><input type="checkbox" id="settingShowPhone"><span class="switch-slider"></span></div></div>
+                        <div class="toggle-switch"><label>Tampilkan Nama Pengunjung</label><div class="switch"><input type="checkbox" id="settingShowVisitor" checked><span class="switch-slider"></span></div></div>
+                        <div class="toggle-switch"><label>Tampilkan Petugas</label><div class="switch"><input type="checkbox" id="settingShowOfficer" checked><span class="switch-slider"></span></div></div>
+                        <div class="toggle-switch"><label>Tampilkan Harga Satuan</label><div class="switch"><input type="checkbox" id="settingShowUnitPrice" checked><span class="switch-slider"></span></div></div>
+                        <div class="toggle-switch"><label>Tampilkan Uang Diterima & Kembalian</label><div class="switch"><input type="checkbox" id="settingShowPayment" checked><span class="switch-slider"></span></div></div>
+                        <div class="toggle-switch"><label>Tampilkan Footer</label><div class="switch"><input type="checkbox" id="settingShowFooter" checked><span class="switch-slider"></span></div></div>
+                    </div>
+                    <div class="settings-section">
+                        <h3>Typography</h3>
+                        <div class="form-group"><label>Ukuran Font</label><select id="settingFontSize" class="form-control"><option value="10">Kecil (10px)</option><option value="11" selected>Normal (11px)</option><option value="12">Besar (12px)</option><option value="13">Sangat Besar (13px)</option></select></div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" id="saveTicketSettingsBtn">Simpan Pengaturan Tiket</button>
+            </div>
+
+            <div id="settingTabPreview" class="settings-tab-content hidden">
+                <div class="card">
+                    <div class="card-title">Preview Tiket</div>
+                    <div id="ticketPreviewArea" class="ticket-preview"></div>
+                    <div class="flex gap-2 mt-4" style="justify-content:center;">
+                        <button class="btn btn-secondary btn-sm" id="refreshPreviewBtn">Refresh Preview</button>
+                        <button class="btn btn-primary btn-sm" id="testPrintBtn">Cetak Test</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="pageBackup" class="page">
+            <div class="page-header"><h1 class="page-title">Backup & Data</h1></div>
+            <div class="card"><div class="card-title">Backup Database</div><p class="text-sm text-muted mb-4">Export seluruh data aplikasi ke file JSON untuk keperluan backup.</p><button class="btn btn-primary" id="backupBtn">Backup Database</button></div>
+            <div class="card"><div class="card-title">Restore Database</div><p class="text-sm text-muted mb-4">Import file backup untuk mengembalikan data. Perhatian: data saat ini akan ditimpa.</p><input type="file" id="restoreInput" accept=".json" style="display:none;"><button class="btn btn-danger" id="restoreBtn">Restore Database</button></div>
+            <div class="card"><div class="card-title">Export Data</div><p class="text-sm text-muted mb-4">Export data transaksi ke format CSV.</p><button class="btn btn-secondary" id="exportCsvBtn">Export CSV</button></div>
+            <div class="card"><div class="card-title">Import Data</div><p class="text-sm text-muted mb-4">Import data transaksi dari file CSV.</p><input type="file" id="importCsvInput" accept=".csv" style="display:none;"><button class="btn btn-secondary" id="importCsvBtn">Import CSV</button></div>
+        </div>
+
+        <div id="pageAuditLog" class="page">
+            <div class="page-header"><h1 class="page-title">Audit Log</h1></div>
+            <div class="filter-bar">
+                <select id="auditFilterAction" class="form-control">
+                    <option value="">Semua Aksi</option>
+                    <option value="LOGIN">Login</option>
+                    <option value="LOGOUT">Logout</option>
+                    <option value="CREATE_USER">Tambah User</option>
+                    <option value="EDIT_USER">Edit User</option>
+                    <option value="DELETE_USER">Hapus User</option>
+                    <option value="RESET_PASSWORD">Reset Password</option>
+                    <option value="CREATE_CATEGORY">Tambah Kategori</option>
+                    <option value="EDIT_CATEGORY">Edit Kategori</option>
+                    <option value="CREATE_TRANSACTION">Input Transaksi</option>
+                    <option value="CANCEL_TRANSACTION">Batalkan Transaksi</option>
+                    <option value="SETTING_CHANGE">Ubah Pengaturan</option>
+                    <option value="BACKUP">Backup</option>
+                    <option value="RESTORE">Restore</option>
+                </select>
+                <button class="btn btn-secondary btn-sm" id="auditFilterResetBtn">Reset</button>
+            </div>
+            <div class="table-cards"><div class="table-wrapper"><table><thead><tr><th>Waktu</th><th>User</th><th>Aksi</th><th>Keterangan</th></tr></thead><tbody id="auditLogBody"></tbody></table></div></div>
+        </div>
+
+        <div id="pageProfile" class="page">
+            <div class="page-header"><h1 class="page-title">Profil</h1></div>
+            <div class="card" style="max-width:500px;">
+                <div class="form-group"><label>Nama</label><input type="text" id="profileName" class="form-control" readonly></div>
+                <div class="form-group"><label>Username</label><input type="text" id="profileUsername" class="form-control" readonly></div>
+                <div class="form-group"><label>Role</label><input type="text" id="profileRole" class="form-control" readonly></div>
+                <hr style="border:none;border-top:1px solid var(--border);margin:20px 0;">
+                <h3 style="font-size:15px;font-weight:700;margin-bottom:12px;">Ubah Password</h3>
+                <div class="form-group"><label>Password Lama</label><input type="password" id="profileOldPass" class="form-control"></div>
+                <div class="form-group"><label>Password Baru</label><input type="password" id="profileNewPass" class="form-control"></div>
+                <div class="form-group"><label>Konfirmasi Password Baru</label><input type="password" id="profileConfirmPass" class="form-control"></div>
+                <button class="btn btn-primary" id="changePasswordBtn">Ubah Password</button>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+        <div class="modal-header"><h3 class="modal-title" id="modalTitle"></h3><button class="modal-close" id="modalCloseBtn">&times;</button></div>
+        <div class="modal-body" id="modalBody"></div>
+        <div class="modal-footer" id="modalFooter"></div>
+    </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+<div id="thermalPrint" class="thermal-print"></div>
+
+<script>
+const APP_CONFIG = {
+    appName: "TiketKu Wisata",
+    appShortName: "TiketKu",
+    version: "1.0.0",
+    developer: "TiketKu Dev",
+    defaultCurrency: "Rp",
+    defaultPaperWidth: "58mm",
+    ticketNumberPrefix: "TKT",
+    ticketNumberDateFormat: "YYYYMMDD",
+    defaultTheme: "system",
+    language: "id-ID",
+    dbName: "wisata_ticket_db",
+    dbVersion: 1,
+    sessionKey: "tiketku_session"
+};
+
+function formatCurrency(amount) { return APP_CONFIG.defaultCurrency + Number(amount || 0).toLocaleString('id-ID'); }
+function formatDate(dateStr) { if (!dateStr) return '-'; const d = new Date(dateStr); return d.toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' }); }
+function formatDateTime(dateStr) { if (!dateStr) return '-'; const d = new Date(dateStr); return d.toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' }) + ' ' + d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }); }
+function formatTime(dateStr) { if (!dateStr) return '-'; const d = new Date(dateStr); return d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }); }
+function generateId() { return Date.now().toString(36) + Math.random().toString(36).substr(2, 9); }
+function getTodayStr() { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+
+function showToast(message, type = 'info') {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = 'toast ' + type;
+    toast.textContent = message;
+    container.appendChild(toast);
+    setTimeout(() => { toast.remove(); }, 3500);
+}
+
+function escapeHtml(str) { if (!str) return ''; const div = document.createElement('div'); div.textContent = str; return div.innerHTML; }
+
+class Database {
+    constructor() { this.db = null; }
+    async open() {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open(APP_CONFIG.dbName, APP_CONFIG.dbVersion);
+            request.onupgradeneeded = (event) => {
+                const db = event.target.result;
+                if (!db.objectStoreNames.contains('users')) { const s = db.createObjectStore('users', { keyPath: 'id' }); s.createIndex('username', 'username', { unique: true }); }
+                if (!db.objectStoreNames.contains('ticketCategories')) { db.createObjectStore('ticketCategories', { keyPath: 'id' }).createIndex('name', 'name', { unique: false }); }
+                if (!db.objectStoreNames.contains('transactions')) { const s = db.createObjectStore('transactions', { keyPath: 'id' }); s.createIndex('ticketNumber', 'ticketNumber', { unique: true }); s.createIndex('date', 'date', { unique: false }); s.createIndex('userId', 'userId', { unique: false }); s.createIndex('status', 'status', { unique: false }); }
+                if (!db.objectStoreNames.contains('settings')) db.createObjectStore('settings', { keyPath: 'key' });
+                if (!db.objectStoreNames.contains('auditLogs')) { const s = db.createObjectStore('auditLogs', { keyPath: 'id' }); s.createIndex('timestamp', 'timestamp', { unique: false }); s.createIndex('action', 'action', { unique: false }); s.createIndex('userId', 'userId', { unique: false }); }
+                if (!db.objectStoreNames.contains('counters')) db.createObjectStore('counters', { keyPath: 'key' });
+            };
+            request.onsuccess = (event) => { this.db = event.target.result; resolve(this.db); };
+            request.onerror = (event) => reject(event.target.error);
+        });
+    }
+    async add(storeName, data) { return new Promise((resolve, reject) => { const tx = this.db.transaction(storeName, 'readwrite'); const r = tx.objectStore(storeName).add(data); r.onsuccess = () => resolve(r.result); r.onerror = () => reject(r.error); }); }
+    async put(storeName, data) { return new Promise((resolve, reject) => { const tx = this.db.transaction(storeName, 'readwrite'); const r = tx.objectStore(storeName).put(data); r.onsuccess = () => resolve(r.result); r.onerror = () => reject(r.error); }); }
+    async get(storeName, key) { return new Promise((resolve, reject) => { const tx = this.db.transaction(storeName, 'readonly'); const r = tx.objectStore(storeName).get(key); r.onsuccess = () => resolve(r.result); r.onerror = () => reject(r.error); }); }
+    async getAll(storeName) { return new Promise((resolve, reject) => { const tx = this.db.transaction(storeName, 'readonly'); const r = tx.objectStore(storeName).getAll(); r.onsuccess = () => resolve(r.result); r.onerror = () => reject(r.error); }); }
+    async delete(storeName, key) { return new Promise((resolve, reject) => { const tx = this.db.transaction(storeName, 'readwrite'); const r = tx.objectStore(storeName).delete(key); r.onsuccess = () => resolve(); r.onerror = () => reject(r.error); }); }
+    async getByIndex(storeName, indexName, value) { return new Promise((resolve, reject) => { const tx = this.db.transaction(storeName, 'readonly'); const r = tx.objectStore(storeName).index(indexName).get(value); r.onsuccess = () => resolve(r.result); r.onerror = () => reject(r.error); }); }
+    async clear(storeName) { return new Promise((resolve, reject) => { const tx = this.db.transaction(storeName, 'readwrite'); const r = tx.objectStore(storeName).clear(); r.onsuccess = () => resolve(); r.onerror = () => reject(r.error); }); }
+}
+
+const MENU_ICONS = {
+    dashboard: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>',
+    inputTicket: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>',
+    transactions: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>',
+    reports: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>',
+    categories: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg>',
+    users: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>',
+    settings: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9"/></svg>',
+    backup: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+    auditLog: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>',
+    profile: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+    logout: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>'
+};
+
+class App {
+    constructor() {
+        this.db = new Database();
+        this.currentUser = null;
+        this.settings = {};
+        this.currentPage = '';
+        this.transactionItems = [];
+        this._printStyleEl = null;
+        this._inputFormInitialized = false;
+    }
+
+    async init() {
+        await this.db.open();
+        await this.initializeDefaults();
+        await this.loadSettings();
+        this.applyTheme();
+        this.setupLogin();
+        this.setupDrawer();
+        this.setupEventListeners();
+        await this.restoreSession();
+    }
+
+    async initializeDefaults() {
+        const users = await this.db.getAll('users');
+        if (users.length === 0) {
+            const now = new Date().toISOString();
+            await this.db.add('users', { id: generateId(), username: 'admin', password: 'admin123', name: 'Administrator', role: 'admin', active: true, isDefault: true, createdAt: now, updatedAt: now });
+        }
+        const categories = await this.db.getAll('ticketCategories');
+        if (categories.length === 0) {
+            const now = new Date().toISOString();
+            for (const cat of [{ name: 'Dewasa', price: 25000, description: 'Tiket pengunjung dewasa', active: true }, { name: 'Anak-anak', price: 15000, description: 'Tiket pengunjung anak-anak', active: true }, { name: 'Lansia', price: 20000, description: 'Tiket pengunjung lansia', active: true }]) {
+                await this.db.add('ticketCategories', { id: generateId(), ...cat, createdAt: now, updatedAt: now });
+            }
+        }
+        if (!(await this.db.get('settings', 'appSettings'))) {
+            await this.db.put('settings', { key: 'appSettings', value: { theme: APP_CONFIG.defaultTheme, paperWidth: APP_CONFIG.defaultPaperWidth, ticketPrefix: APP_CONFIG.ticketNumberPrefix, ticketSeparator: '-', ticketDigits: 4, ticketTitle: 'TIKETKU WISATA', placeName: 'Nama Tempat Wisata', address: 'Alamat Tempat Wisata', phone: '', website: '', footer: 'Terima kasih telah berkunjung\nSelamat menikmati', logo: null, showLogo: true, showAddress: true, showPhone: false, showVisitor: true, showOfficer: true, showUnitPrice: true, showPayment: true, showFooter: true, fontSize: 11 } });
+        }
+    }
+
+    async loadSettings() { const s = await this.db.get('settings', 'appSettings'); this.settings = s ? s.value : {}; }
+    async saveSetting(key, value) { const s = await this.db.get('settings', 'appSettings'); if (s) { s.value[key] = value; await this.db.put('settings', s); this.settings = s.value; } }
+    async saveAllSettings(values) { const s = await this.db.get('settings', 'appSettings'); if (s) { Object.assign(s.value, values); await this.db.put('settings', s); this.settings = s.value; } }
+
+    applyTheme() {
+        const theme = this.settings.theme || 'system';
+        let effectiveTheme = theme;
+        if (theme === 'system') effectiveTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', effectiveTheme);
+    }
+
+    async auditLog(action, description, relatedId = null) {
+        try { await this.db.add('auditLogs', { id: generateId(), timestamp: new Date().toISOString(), userId: this.currentUser ? this.currentUser.id : null, username: this.currentUser ? this.currentUser.username : 'system', action, description, relatedId }); } catch (err) { console.warn('Audit log failed:', err); }
+    }
+
+    async generateTicketNumber() {
+        const today = new Date();
+        const dateStr = today.getFullYear().toString() + String(today.getMonth()+1).padStart(2,'0') + String(today.getDate()).padStart(2,'0');
+        const prefix = this.settings.ticketPrefix || 'TKT';
+        const sep = this.settings.ticketSeparator || '-';
+        const digits = this.settings.ticketDigits || 4;
+        const counterKey = 'ticket_' + dateStr;
+        let counter = await this.db.get('counters', counterKey);
+        if (!counter) counter = { key: counterKey, value: 0 };
+        counter.value++;
+        await this.db.put('counters', counter);
+        return `${prefix}${sep}${dateStr}${sep}${String(counter.value).padStart(digits, '0')}`;
+    }
+
+    saveSession() {
+        if (!this.currentUser) return;
+        try { localStorage.setItem(APP_CONFIG.sessionKey, JSON.stringify({ userId: this.currentUser.id, loginTime: new Date().toISOString(), appVersion: APP_CONFIG.version })); } catch (err) {}
+    }
+    clearSession() { try { localStorage.removeItem(APP_CONFIG.sessionKey); } catch (err) {} }
+
+    async restoreSession() {
+        try {
+            const sessionStr = localStorage.getItem(APP_CONFIG.sessionKey);
+            if (!sessionStr) return false;
+            const session = JSON.parse(sessionStr);
+            if (!session || !session.userId) { this.clearSession(); return false; }
+            const user = await this.db.get('users', session.userId);
+            if (!user || !user.active) { this.clearSession(); if (user && !user.active) showToast('Akun Anda telah dinonaktifkan.', 'error'); return false; }
+            this.currentUser = user;
+            this.showApp();
+            return true;
+        } catch (err) { this.clearSession(); return false; }
+    }
+
+    setupLogin() {
+        const loginLogo = document.getElementById('loginLogo');
+        if (this.settings.logo) loginLogo.innerHTML = `<img src="${this.settings.logo}" alt="Logo">`;
+        else loginLogo.textContent = APP_CONFIG.appShortName.charAt(0);
+        document.getElementById('loginTitle').textContent = APP_CONFIG.appName;
+        document.getElementById('loginVersion').textContent = 'v' + APP_CONFIG.version;
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const alertEl = document.getElementById('loginAlert');
+            const btnText = document.getElementById('loginBtnText');
+            const btnLoading = document.getElementById('loginBtnLoading');
+            const loginBtn = document.getElementById('loginBtn');
+
+            alertEl.classList.add('hidden');
+            btnText.classList.add('hidden');
+            btnLoading.classList.remove('hidden');
+            loginBtn.disabled = true;
+
+            await new Promise(r => setTimeout(r, 300));
+
+            try {
+                const user = await this.db.getByIndex('users', 'username', username);
+                if (!user) { alertEl.textContent = 'Username tidak ditemukan.'; alertEl.classList.remove('hidden'); }
+                else if (!user.active) { alertEl.textContent = 'Akun ini telah dinonaktifkan.'; alertEl.classList.remove('hidden'); }
+                else if (user.password !== password) { alertEl.textContent = 'Password salah.'; alertEl.classList.remove('hidden'); }
+                else {
+                    this.currentUser = user;
+                    this.saveSession();
+                    await this.auditLog('LOGIN', `User ${user.username} login`);
+                    this.showApp();
+                }
+            } catch (err) { alertEl.textContent = 'Terjadi kesalahan.'; alertEl.classList.remove('hidden'); }
+
+            btnText.classList.remove('hidden');
+            btnLoading.classList.add('hidden');
+            loginBtn.disabled = false;
+        });
+    }
+
+    showApp() {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('appContainer').classList.add('active');
+        document.getElementById('headerUserName').textContent = this.currentUser.name;
+        document.getElementById('headerTitle').textContent = APP_CONFIG.appName;
+
+        const drawerLogo = document.getElementById('drawerLogo');
+        if (this.settings.logo) drawerLogo.innerHTML = `<img src="${this.settings.logo}" alt="Logo">`;
+        else drawerLogo.textContent = APP_CONFIG.appShortName.charAt(0);
+        document.getElementById('drawerAppName').textContent = APP_CONFIG.appName;
+        document.getElementById('drawerUserName').textContent = this.currentUser.name;
+        document.getElementById('drawerUserRole').textContent = this.currentUser.role === 'admin' ? 'Administrator' : 'Petugas';
+        document.getElementById('drawerFooter').textContent = 'v' + APP_CONFIG.version;
+        document.getElementById('sidebarUserName').textContent = this.currentUser.name;
+        document.getElementById('sidebarUserRole').textContent = this.currentUser.role === 'admin' ? 'Administrator' : 'Petugas';
+        document.getElementById('sidebarFooter').textContent = 'v' + APP_CONFIG.version;
+
+        this.buildNavigation();
+        this._inputFormInitialized = false;
+        
+        if (this.currentUser.role === 'admin') this.navigateTo('dashboard');
+        else this.navigateTo('inputTicket');
+
+        if (this.currentUser.isDefault) document.getElementById('defaultPasswordAlert').classList.remove('hidden');
+    }
+
+    hideApp() {
+        this.clearSession();
+        document.getElementById('loginScreen').style.display = '';
+        document.getElementById('appContainer').classList.remove('active');
+        this.currentUser = null;
+        document.getElementById('loginUsername').value = '';
+        document.getElementById('loginPassword').value = '';
+        this.closeDrawer();
+    }
+
+    setupDrawer() {
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const drawer = document.getElementById('drawer');
+        const overlay = document.getElementById('drawerOverlay');
+
+        hamburgerBtn.addEventListener('click', () => { drawer.classList.contains('active') ? this.closeDrawer() : this.openDrawer(); });
+        overlay.addEventListener('click', () => this.closeDrawer());
+
+        let touchStartX = 0, touchCurrentX = 0, isSwiping = false;
+        drawer.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; isSwiping = true; }, { passive: true });
+        drawer.addEventListener('touchmove', (e) => { if (!isSwiping) return; touchCurrentX = e.touches[0].clientX; const diff = touchCurrentX - touchStartX; if (diff < 0) drawer.style.transform = `translateX(${diff}px)`; }, { passive: true });
+        drawer.addEventListener('touchend', () => { if (!isSwiping) return; const diff = touchCurrentX - touchStartX; drawer.style.transform = ''; if (diff < -60) this.closeDrawer(); isSwiping = false; });
+
+        window.addEventListener('resize', () => { if (window.innerWidth >= 768) this.closeDrawer(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') this.closeDrawer(); });
+    }
+
+    openDrawer() { document.getElementById('drawer').classList.add('active'); document.getElementById('drawerOverlay').classList.add('active'); document.body.style.overflow = 'hidden'; }
+    closeDrawer() { document.getElementById('drawer').classList.remove('active'); document.getElementById('drawerOverlay').classList.remove('active'); document.body.style.overflow = ''; }
+
+    buildNavigation() {
+        const isAdmin = this.currentUser.role === 'admin';
+        const menuItems = isAdmin ? [
+            { id: 'dashboard', label: 'Dashboard' }, { id: 'inputTicket', label: 'Input Tiket' },
+            { id: 'transactions', label: 'Transaksi' }, { id: 'reports', label: 'Laporan' },
+            { id: 'categories', label: 'Kategori Tiket' }, { id: 'users', label: 'Pengguna' },
+            { id: 'settings', label: 'Pengaturan' }, { id: 'backup', label: 'Backup & Data' },
+            { id: 'auditLog', label: 'Audit Log' }, { id: 'profile', label: 'Profil' }
+        ] : [
+            { id: 'inputTicket', label: 'Input Tiket' }, { id: 'transactions', label: 'Transaksi' }, { id: 'profile', label: 'Profil' }
+        ];
+
+        const buildMenu = (container) => {
+            container.innerHTML = menuItems.map(item => `<button class="drawer-nav-item" data-page="${item.id}">${MENU_ICONS[item.id] || ''}<span>${item.label}</span></button>`).join('') + `<button class="drawer-nav-item logout" data-page="logout">${MENU_ICONS.logout}<span>Keluar</span></button>`;
+            container.querySelectorAll('.drawer-nav-item').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const page = btn.getAttribute('data-page');
+                    if (container.id === 'drawerBody') this.closeDrawer();
+                    const action = () => { page === 'logout' ? this.logout() : this.navigateTo(page); };
+                    container.id === 'drawerBody' ? setTimeout(action, 150) : action();
+                });
+            });
+        };
+
+        buildMenu(document.getElementById('drawerBody'));
+        buildMenu(document.getElementById('sidebarNav'));
+    }
+
+    navigateTo(page) {
+        const adminPages = ['dashboard', 'reports', 'categories', 'users', 'settings', 'backup', 'auditLog'];
+        if (adminPages.includes(page) && this.currentUser.role !== 'admin') { showToast('Akses ditolak', 'error'); return; }
+
+        this.currentPage = page;
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        const pageMap = { 'dashboard': 'pageDashboard', 'inputTicket': 'pageInputTicket', 'transactions': 'pageTransactions', 'reports': 'pageReports', 'categories': 'pageCategories', 'users': 'pageUsers', 'settings': 'pageSettings', 'backup': 'pageBackup', 'auditLog': 'pageAuditLog', 'profile': 'pageProfile' };
+        const pageEl = document.getElementById(pageMap[page]);
+        if (pageEl) pageEl.classList.add('active');
+
+        document.querySelectorAll('.drawer-nav-item').forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-page') === page));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        this.loadPageData(page);
+    }
+
+    async loadPageData(page) {
+        switch(page) {
+            case 'dashboard': await this.renderDashboard(); break;
+            case 'inputTicket': await this.initTransactionForm(); break;
+            case 'transactions': await this.renderTransactions(); break;
+            case 'reports': await this.initReports(); break;
+            case 'categories': await this.renderCategories(); break;
+            case 'users': await this.renderUsers(); break;
+            case 'settings': await this.loadSettingsForm(); break;
+            case 'auditLog': await this.renderAuditLog(); break;
+            case 'profile': this.loadProfile(); break;
+        }
+    }
+
+    async logout() { await this.auditLog('LOGOUT', `User ${this.currentUser.username} logout`); this.hideApp(); }
+
+    async renderDashboard() {
+        const transactions = await this.db.getAll('transactions');
+        const today = getTodayStr();
+        const todayTx = transactions.filter(t => t.date && t.date.startsWith(today) && t.status === 'PAID');
+        const monthStr = today.substring(0, 7);
+        const monthTx = transactions.filter(t => t.date && t.date.startsWith(monthStr) && t.status === 'PAID');
+        const cancelledTx = transactions.filter(t => t.status === 'CANCELLED');
+        const todayRevenue = todayTx.reduce((sum, t) => sum + t.total, 0);
+        const todayTickets = todayTx.reduce((sum, t) => sum + t.items.reduce((s, i) => s + i.qty, 0), 0);
+        const monthRevenue = monthTx.reduce((sum, t) => sum + t.total, 0);
+
+        document.getElementById('dashboardStats').innerHTML = `
+            <div class="stat-card"><div class="stat-value">${todayTx.length}</div><div class="stat-label">Transaksi Hari Ini</div></div>
+            <div class="stat-card"><div class="stat-value">${todayTickets}</div><div class="stat-label">Tiket Terjual Hari Ini</div></div>
+            <div class="stat-card"><div class="stat-value">${formatCurrency(todayRevenue)}</div><div class="stat-label">Omzet Hari Ini</div></div>
+            <div class="stat-card"><div class="stat-value">${monthTx.length}</div><div class="stat-label">Transaksi Bulan Ini</div></div>
+            <div class="stat-card"><div class="stat-value">${formatCurrency(monthRevenue)}</div><div class="stat-label">Omzet Bulan Ini</div></div>
+            <div class="stat-card"><div class="stat-value">${cancelledTx.length}</div><div class="stat-label">Transaksi Dibatalkan</div></div>
+        `;
+
+        const last7 = [];
+        for (let i = 6; i >= 0; i--) {
+            const d = new Date(); d.setDate(d.getDate() - i);
+            const ds = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+            const dayRevenue = transactions.filter(t => t.date && t.date.startsWith(ds) && t.status === 'PAID').reduce((sum, t) => sum + t.total, 0);
+            last7.push({ label: d.toLocaleDateString('id-ID', {day:'2-digit',month:'short'}), value: dayRevenue });
+        }
+        const maxVal = Math.max(...last7.map(d => d.value), 1);
+        document.getElementById('dashboardChart').innerHTML = `<div class="bar-chart" style="margin-bottom:24px;">${last7.map(d => `<div class="bar" style="height:${(d.value/maxVal)*100}%" title="${formatCurrency(d.value)}"><span class="bar-label">${d.label}</span></div>`).join('')}</div>`;
+
+        const catSales = {};
+        transactions.filter(t => t.status === 'PAID').forEach(t => t.items.forEach(item => { catSales[item.categoryName] = (catSales[item.categoryName] || 0) + item.qty; }));
+        const sortedCats = Object.entries(catSales).sort((a, b) => b[1] - a[1]).slice(0, 5);
+        const topCatsEl = document.getElementById('topCategories');
+        topCatsEl.innerHTML = sortedCats.length === 0 ? '<p class="text-muted text-sm">Belum ada data penjualan</p>' : sortedCats.map(([name, qty]) => `<div class="calc-row"><span>${escapeHtml(name)}</span><span><strong>${qty}</strong> tiket</span></div>`).join('');
+    }
+
+    // ============================================================
+    // INPUT TIKET - FIXED VERSION
+    // ============================================================
+    async initTransactionForm() {
+        // PENTING: Reset state dan DOM setiap kali form diinisialisasi
+        // untuk mencegah duplikasi item saat navigasi berulang
+        this.transactionItems = [];
+        const container = document.getElementById('ticketItems');
+        
+        // Bersihkan SEMUA konten DOM sebelumnya
+        container.innerHTML = '';
+
+        // Reset form fields
+        document.getElementById('txVisitorName').value = '';
+        document.getElementById('txVisitorPhone').value = '';
+        document.getElementById('txAmountReceived').value = '';
+        document.getElementById('calcSubtotal').textContent = 'Rp0';
+        document.getElementById('calcTotal').textContent = 'Rp0';
+        document.getElementById('calcChange').textContent = 'Rp0';
+        document.getElementById('amountError').classList.remove('show');
+
+        // Load kategori aktif
+        const allCategories = await this.db.getAll('ticketCategories');
+        const activeCategories = allCategories.filter(c => c.active);
+
+        if (activeCategories.length === 0) {
+            container.innerHTML = '<p class="text-muted text-sm" style="padding:12px;">Tidak ada kategori tiket aktif. Hubungi administrator.</p>';
+            return;
+        }
+
+        // Tambahkan 1 item default
+        this._createTicketItemRow(activeCategories);
+        
+        // Update kalkulasi
+        this._recalculate();
+        
+        this._inputFormInitialized = true;
+    }
+
+    _createTicketItemRow(activeCategories) {
+        const container = document.getElementById('ticketItems');
+        const idx = this.transactionItems.length;
+        
+        // Push ke array state
+        const itemState = { categoryId: activeCategories[0].id, qty: 1 };
+        this.transactionItems.push(itemState);
+
+        // Buat DOM row
+        const div = document.createElement('div');
+        div.className = 'ticket-item';
+        div.setAttribute('data-row-idx', idx);
+
+        const optionsHtml = activeCategories.map(c => 
+            `<option value="${c.id}" data-price="${c.price}">${escapeHtml(c.name)} - ${formatCurrency(c.price)}</option>`
+        ).join('');
+
+        div.innerHTML = `
+            <select class="item-category">${optionsHtml}</select>
+            <input type="number" class="item-qty" value="1" min="1" placeholder="Jml">
+            <span class="item-price">${formatCurrency(activeCategories[0].price)}</span>
+            <button class="remove-item-btn" type="button" title="Hapus item">&times;</button>
+        `;
+        container.appendChild(div);
+
+        // Event: ubah kategori
+        const catSelect = div.querySelector('.item-category');
+        catSelect.addEventListener('change', () => {
+            const selectedOpt = catSelect.selectedOptions[0];
+            const price = parseInt(selectedOpt.getAttribute('data-price')) || 0;
+            const qty = parseInt(div.querySelector('.item-qty').value) || 1;
+            itemState.categoryId = catSelect.value;
+            itemState.qty = Math.max(1, qty);
+            div.querySelector('.item-price').textContent = formatCurrency(price * itemState.qty);
+            this._recalculate();
+        });
+
+        // Event: ubah jumlah
+        const qtyInput = div.querySelector('.item-qty');
+        qtyInput.addEventListener('input', () => {
+            const qty = parseInt(qtyInput.value) || 1;
+            itemState.qty = Math.max(1, qty);
+            const selectedOpt = catSelect.selectedOptions[0];
+            const price = parseInt(selectedOpt.getAttribute('data-price')) || 0;
+            div.querySelector('.item-price').textContent = formatCurrency(price * itemState.qty);
+            this._recalculate();
+        });
+
+        // Event: hapus item
+        div.querySelector('.remove-item-btn').addEventListener('click', () => {
+            if (this.transactionItems.length <= 1) {
+                showToast('Minimal harus ada 1 item tiket', 'error');
+                return;
+            }
+            // Cari index state berdasarkan referensi objek
+            const stateIdx = this.transactionItems.indexOf(itemState);
+            if (stateIdx !== -1) {
+                this.transactionItems.splice(stateIdx, 1);
+            }
+            div.remove();
+            this._recalculate();
+        });
+    }
+
+    _recalculate() {
+        // Hitung total berdasarkan state array (sumber kebenaran tunggal)
+        const allCategories = {};
+        this.db.getAll('ticketCategories').then(cats => {
+            cats.forEach(c => allCategories[c.id] = c);
+
+            let subtotal = 0;
+            this.transactionItems.forEach(item => {
+                const cat = allCategories[item.categoryId];
+                if (cat) subtotal += cat.price * item.qty;
+            });
+
+            document.getElementById('calcSubtotal').textContent = formatCurrency(subtotal);
+            document.getElementById('calcTotal').textContent = formatCurrency(subtotal);
+
+            const received = parseInt(document.getElementById('txAmountReceived').value) || 0;
+            const change = received - subtotal;
+            document.getElementById('calcChange').textContent = formatCurrency(Math.max(0, change));
+            
+            const errorEl = document.getElementById('amountError');
+            if (received > 0 && received < subtotal) errorEl.classList.add('show');
+            else errorEl.classList.remove('show');
+        });
+    }
+
+    async saveTransaction(printAfter = false) {
+        const visitorName = document.getElementById('txVisitorName').value.trim();
+        const visitorPhone = document.getElementById('txVisitorPhone').value.trim();
+        const amountReceived = parseInt(document.getElementById('txAmountReceived').value) || 0;
+
+        if (!visitorName) { showToast('Nama pengunjung harus diisi', 'error'); return; }
+        if (this.transactionItems.length === 0) { showToast('Tambahkan minimal satu item tiket', 'error'); return; }
+
+        const categories = await this.db.getAll('ticketCategories');
+        const catMap = {};
+        categories.forEach(c => catMap[c.id] = c);
+
+        let total = 0;
+        const items = [];
+        for (const item of this.transactionItems) {
+            const cat = catMap[item.categoryId];
+            if (!cat) continue;
+            const itemTotal = cat.price * item.qty;
+            total += itemTotal;
+            items.push({ categoryId: cat.id, categoryName: cat.name, price: cat.price, qty: item.qty, subtotal: itemTotal });
+        }
+
+        if (amountReceived < total) { showToast('Uang diterima kurang dari total', 'error'); document.getElementById('amountError').classList.add('show'); return; }
+
+        const now = new Date();
+        const ticketNumber = await this.generateTicketNumber();
+        const transaction = {
+            id: generateId(), ticketNumber, visitorName, visitorPhone, items, total,
+            amountReceived, change: amountReceived - total, status: 'PAID',
+            date: now.toISOString(), userId: this.currentUser.id, userName: this.currentUser.name,
+            createdAt: now.toISOString()
+        };
+
+        await this.db.add('transactions', transaction);
+        await this.auditLog('CREATE_TRANSACTION', `Transaksi ${ticketNumber} - Total: ${formatCurrency(total)}`, transaction.id);
+        showToast('Transaksi berhasil disimpan', 'success');
+
+        if (printAfter) this.printTicket(transaction);
+
+        // Reset form dengan benar
+        await this.initTransactionForm();
+    }
+
+    printTicket(transaction) {
+        const s = this.settings;
+        const paperWidth = s.paperWidth || '58mm';
+        const fontSize = s.fontSize || 11;
+        const width = paperWidth === '80mm' ? '80mm' : '58mm';
+
+        let content = `<div style="text-align:center;font-weight:bold;font-size:${fontSize+2}px;">${escapeHtml(s.ticketTitle || 'TIKETKU WISATA')}</div>`;
+        content += `<div style="text-align:center;">${escapeHtml(s.placeName || '')}</div>`;
+        if (s.showAddress && s.address) content += `<div style="text-align:center;font-size:${fontSize-1}px;">${escapeHtml(s.address)}</div>`;
+        if (s.phone) content += `<div style="text-align:center;font-size:${fontSize-1}px;">${escapeHtml(s.phone)}</div>`;
+        if (s.website) content += `<div style="text-align:center;font-size:${fontSize-1}px;">${escapeHtml(s.website)}</div>`;
+        if (s.showLogo && s.logo) content = `<img src="${s.logo}" style="max-width:60px;max-height:60px;display:block;margin:0 auto 8px;">` + content;
+
+        content += `<div style="border-top:2px solid #000;margin:6px 0;"></div>`;
+        content += `<div>No Tiket : ${escapeHtml(transaction.ticketNumber)}</div>`;
+        content += `<div>Tanggal : ${formatDate(transaction.date)}</div>`;
+        content += `<div>Jam     : ${formatTime(transaction.date)}</div>`;
+        if (s.showVisitor && transaction.visitorName) {
+            content += `<div style="border-top:1px dashed #000;margin:6px 0;"></div><div>Pengunjung:</div><div style="font-weight:bold;">${escapeHtml(transaction.visitorName)}</div>`;
+        }
+        if (s.showPhone && transaction.visitorPhone) content += `<div>No. HP: ${escapeHtml(transaction.visitorPhone)}</div>`;
+        content += `<div style="border-top:1px dashed #000;margin:6px 0;"></div>`;
+
+        transaction.items.forEach(item => {
+            if (s.showUnitPrice) {
+                content += `<div>${escapeHtml(item.categoryName)}</div><div style="display:flex;justify-content:space-between;"><span>${item.qty} x ${formatCurrency(item.price)}</span><span>${formatCurrency(item.subtotal)}</span></div>`;
+            } else {
+                content += `<div style="display:flex;justify-content:space-between;"><span>${escapeHtml(item.categoryName)} x${item.qty}</span><span>${formatCurrency(item.subtotal)}</span></div>`;
+            }
+        });
+
+        content += `<div style="border-top:1px dashed #000;margin:6px 0;"></div>`;
+        content += `<div style="display:flex;justify-content:space-between;font-weight:bold;font-size:${fontSize+1}px;"><span>TOTAL</span><span>${formatCurrency(transaction.total)}</span></div>`;
+        if (s.showPayment) {
+            content += `<div style="display:flex;justify-content:space-between;"><span>Tunai</span><span>${formatCurrency(transaction.amountReceived)}</span></div>`;
+            content += `<div style="display:flex;justify-content:space-between;"><span>Kembali</span><span>${formatCurrency(transaction.change)}</span></div>`;
+        }
+        if (s.showOfficer) { content += `<div style="border-top:1px dashed #000;margin:6px 0;"></div><div>Petugas: ${escapeHtml(transaction.userName)}</div>`; }
+        if (s.showFooter && s.footer) {
+            content += `<div style="border-top:1px dashed #000;margin:6px 0;"></div>`;
+            s.footer.split('\n').forEach(l => content += `<div style="text-align:center;">${escapeHtml(l)}</div>`);
+        }
+        content += `<div style="border-top:2px solid #000;margin:6px 0;"></div>`;
+
+        const printArea = document.getElementById('thermalPrint');
+        printArea.className = 'thermal-print' + (paperWidth === '80mm' ? ' width-80' : '');
+        printArea.style.fontFamily = "'Courier New', monospace";
+        printArea.style.fontSize = fontSize + 'px';
+        printArea.style.lineHeight = '1.4';
+        printArea.innerHTML = content;
+
+        if (!this._printStyleEl) { this._printStyleEl = document.createElement('style'); this._printStyleEl.id = 'thermal-print-page-style'; document.head.appendChild(this._printStyleEl); }
+        this._printStyleEl.textContent = `@media print { @page { size: ${width} auto; margin: 0; } }`;
+        document.body.classList.add('thermal-printing');
+
+        setTimeout(() => {
+            try { window.print(); } catch (err) { console.error('Print error:', err); }
+            const cleanup = () => {
+                document.body.classList.remove('thermal-printing');
+                printArea.className = 'thermal-print';
+                printArea.innerHTML = '';
+                if (this._printStyleEl) this._printStyleEl.textContent = '';
+                window.removeEventListener('afterprint', cleanup);
+            };
+            window.addEventListener('afterprint', cleanup, { once: true });
+            setTimeout(cleanup, 2000);
+        }, 250);
+    }
+
+    async renderTransactions() {
+        let transactions = await this.db.getAll('transactions');
+        if (this.currentUser.role !== 'admin') transactions = transactions.filter(t => t.userId === this.currentUser.id);
+        const filterDate = document.getElementById('txFilterDate').value;
+        const filterStatus = document.getElementById('txFilterStatus').value;
+        if (filterDate) transactions = transactions.filter(t => t.date && t.date.startsWith(filterDate));
+        if (filterStatus) transactions = transactions.filter(t => t.status === filterStatus);
+        transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        const tbody = document.getElementById('transactionsBody');
+        if (transactions.length === 0) { tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted" style="padding:40px;">Tidak ada transaksi</td></tr>'; return; }
+        tbody.innerHTML = transactions.map(t => `
+            <tr>
+                <td data-label="No. Tiket">${escapeHtml(t.ticketNumber)}</td>
+                <td data-label="Tanggal">${formatDate(t.date)}</td>
+                <td data-label="Pengunjung">${escapeHtml(t.visitorName)}</td>
+                <td data-label="Total">${formatCurrency(t.total)}</td>
+                <td data-label="Status"><span class="badge ${t.status === 'PAID' ? 'badge-success' : 'badge-danger'}">${t.status === 'PAID' ? 'Lunas' : 'Dibatalkan'}</span></td>
+                <td data-label="Aksi"><div style="display:flex;gap:4px;flex-wrap:wrap;">
+                    <button class="btn btn-sm btn-secondary" onclick="app.viewTransaction('${t.id}')">Detail</button>
+                    <button class="btn btn-sm btn-secondary" onclick="app.reprintTicket('${t.id}')">Cetak</button>
+                    ${this.currentUser.role === 'admin' && t.status === 'PAID' ? `<button class="btn btn-sm btn-danger" onclick="app.cancelTransaction('${t.id}')">Batal</button>` : ''}
+                </div></td>
+            </tr>`).join('');
+    }
+
+    async viewTransaction(id) {
+        const t = await this.db.get('transactions', id);
+        if (!t) return;
+        const itemsHtml = t.items.map(item => `<div class="calc-row"><span>${escapeHtml(item.categoryName)} x${item.qty}</span><span>${formatCurrency(item.subtotal)}</span></div>`).join('');
+        const body = `
+            <div style="margin-bottom:12px;">
+                <div class="calc-row"><span>No. Tiket</span><span><strong>${escapeHtml(t.ticketNumber)}</strong></span></div>
+                <div class="calc-row"><span>Tanggal</span><span>${formatDateTime(t.date)}</span></div>
+                <div class="calc-row"><span>Pengunjung</span><span>${escapeHtml(t.visitorName)}</span></div>
+                ${t.visitorPhone ? `<div class="calc-row"><span>No. HP</span><span>${escapeHtml(t.visitorPhone)}</span></div>` : ''}
+                <div class="calc-row"><span>Petugas</span><span>${escapeHtml(t.userName)}</span></div>
+                <div class="calc-row"><span>Status</span><span class="badge ${t.status === 'PAID' ? 'badge-success' : 'badge-danger'}">${t.status === 'PAID' ? 'Lunas' : 'Dibatalkan'}</span></div>
+            </div>
+            <div style="border-top:1px solid var(--border);padding-top:12px;">
+                ${itemsHtml}
+                <div class="calc-row total"><span>Total</span><span>${formatCurrency(t.total)}</span></div>
+                <div class="calc-row"><span>Tunai</span><span>${formatCurrency(t.amountReceived)}</span></div>
+                <div class="calc-row"><span>Kembali</span><span>${formatCurrency(t.change)}</span></div>
+            </div>
+            ${t.cancelledAt ? `<div class="alert alert-danger" style="margin-top:12px;">Dibatalkan pada ${formatDateTime(t.cancelledAt)} oleh ${escapeHtml(t.cancelledBy || '-')}. Alasan: ${escapeHtml(t.cancelReason || '-')}</div>` : ''}
+        `;
+        this.showModal('Detail Transaksi', body, `<button class="btn btn-secondary" onclick="app.closeModal()">Tutup</button><button class="btn btn-primary" onclick="app.reprintTicket('${t.id}');app.closeModal();">Cetak Ulang</button>`);
+    }
+
+    async reprintTicket(id) { const t = await this.db.get('transactions', id); if (t) this.printTicket(t); }
+
+    async cancelTransaction(id) {
+        if (this.currentUser.role !== 'admin') { showToast('Hanya admin yang dapat membatalkan transaksi', 'error'); return; }
+        this.showModal('Batalkan Transaksi', `<p style="margin-bottom:16px;">Apakah Anda yakin ingin membatalkan transaksi ini?</p><div class="form-group"><label>Alasan Pembatalan</label><textarea id="cancelReason" class="form-control" placeholder="Masukkan alasan pembatalan" required></textarea></div>`, `<button class="btn btn-secondary" onclick="app.closeModal()">Batal</button><button class="btn btn-danger" onclick="app.confirmCancelTransaction('${id}')">Batalkan</button>`);
+    }
+
+    async confirmCancelTransaction(id) {
+        const reason = document.getElementById('cancelReason').value.trim();
+        if (!reason) { showToast('Alasan pembatalan harus diisi', 'error'); return; }
+        const t = await this.db.get('transactions', id);
+        if (!t) return;
+        t.status = 'CANCELLED'; t.cancelledAt = new Date().toISOString(); t.cancelledBy = this.currentUser.name; t.cancelReason = reason;
+        await this.db.put('transactions', t);
+        await this.auditLog('CANCEL_TRANSACTION', `Transaksi ${t.ticketNumber} dibatalkan. Alasan: ${reason}`, id);
+        this.closeModal();
+        showToast('Transaksi berhasil dibatalkan', 'success');
+        this.renderTransactions();
+    }
+
+    async initReports() {
+        const categories = await this.db.getAll('ticketCategories');
+        document.getElementById('reportCategory').innerHTML = '<option value="">Semua Kategori</option>' + categories.map(c => `<option value="${c.id}">${escapeHtml(c.name)}</option>`).join('');
+        const users = await this.db.getAll('users');
+        document.getElementById('reportUser').innerHTML = '<option value="">Semua Petugas</option>' + users.map(u => `<option value="${u.id}">${escapeHtml(u.name)}</option>`).join('');
+        this.applyReport();
+    }
+
+    async applyReport() {
+        const period = document.getElementById('reportPeriod').value;
+        const catFilter = document.getElementById('reportCategory').value;
+        const userFilter = document.getElementById('reportUser').value;
+        let startDate, endDate;
+        const now = new Date();
+        const today = getTodayStr();
+
+        switch(period) {
+            case 'today': startDate = endDate = today; break;
+            case 'yesterday': { const y = new Date(); y.setDate(y.getDate() - 1); startDate = endDate = y.getFullYear() + '-' + String(y.getMonth()+1).padStart(2,'0') + '-' + String(y.getDate()).padStart(2,'0'); break; }
+            case '7days': { const d7 = new Date(); d7.setDate(d7.getDate() - 6); startDate = d7.getFullYear() + '-' + String(d7.getMonth()+1).padStart(2,'0') + '-' + String(d7.getDate()).padStart(2,'0'); endDate = today; break; }
+            case 'month': { startDate = today.substring(0, 7) + '-01'; const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate(); endDate = today.substring(0, 7) + '-' + String(lastDay).padStart(2, '0'); break; }
+            case 'lastmonth': { const lm = new Date(now.getFullYear(), now.getMonth() - 1, 1); const lmLast = new Date(now.getFullYear(), now.getMonth(), 0).getDate(); startDate = lm.getFullYear() + '-' + String(lm.getMonth()+1).padStart(2,'0') + '-01'; endDate = lm.getFullYear() + '-' + String(lm.getMonth()+1).padStart(2,'0') + '-' + String(lmLast).padStart(2,'0'); break; }
+            case 'custom': startDate = document.getElementById('reportDateStart').value; endDate = document.getElementById('reportDateEnd').value; break;
+        }
+
+        let transactions = await this.db.getAll('transactions');
+        if (startDate && endDate) transactions = transactions.filter(t => { const td = t.date ? t.date.substring(0, 10) : ''; return td >= startDate && td <= endDate; });
+        if (catFilter) transactions = transactions.filter(t => t.items.some(i => i.categoryId === catFilter));
+        if (userFilter) transactions = transactions.filter(t => t.userId === userFilter);
+
+        const paidTx = transactions.filter(t => t.status === 'PAID');
+        const cancelledTx = transactions.filter(t => t.status === 'CANCELLED');
+        const totalRevenue = paidTx.reduce((sum, t) => sum + t.total, 0);
+        const totalTickets = paidTx.reduce((sum, t) => sum + t.items.reduce((s, i) => s + i.qty, 0), 0);
+        const totalCancelled = cancelledTx.reduce((sum, t) => sum + t.total, 0);
+
+        document.getElementById('reportStats').innerHTML = `
+            <div class="stat-card"><div class="stat-value">${paidTx.length}</div><div class="stat-label">Total Transaksi</div></div>
+            <div class="stat-card"><div class="stat-value">${totalTickets}</div><div class="stat-label">Total Tiket</div></div>
+            <div class="stat-card"><div class="stat-value">${formatCurrency(totalRevenue)}</div><div class="stat-label">Total Omzet</div></div>
+            <div class="stat-card"><div class="stat-value">${cancelledTx.length}</div><div class="stat-label">Transaksi Dibatalkan</div></div>
+            <div class="stat-card"><div class="stat-value">${formatCurrency(totalCancelled)}</div><div class="stat-label">Nilai Dibatalkan</div></div>
+        `;
+
+        const catSummary = {};
+        paidTx.forEach(t => t.items.forEach(item => { if (!catSummary[item.categoryName]) catSummary[item.categoryName] = { tickets: 0, revenue: 0 }; catSummary[item.categoryName].tickets += item.qty; catSummary[item.categoryName].revenue += item.subtotal; }));
+        const catTxCount = {};
+        paidTx.forEach(t => { const catsInTx = new Set(t.items.map(i => i.categoryName)); catsInTx.forEach(catName => { catTxCount[catName] = (catTxCount[catName] || 0) + 1; }); });
+
+        const catEntries = Object.entries(catSummary);
+        document.getElementById('reportCategorySummary').innerHTML = catEntries.length === 0 ? '<tr><td class="text-center text-muted">Tidak ada data</td></tr>' : `<thead><tr><th>Kategori</th><th>Jumlah Tiket</th><th>Transaksi</th><th>Omzet</th></tr></thead><tbody>${catEntries.map(([name, data]) => `<tr><td>${escapeHtml(name)}</td><td>${data.tickets}</td><td>${catTxCount[name] || 0}</td><td>${formatCurrency(data.revenue)}</td></tr>`).join('')}</tbody>`;
+
+        const userSummary = {};
+        paidTx.forEach(t => { const name = t.userName || 'Unknown'; if (!userSummary[name]) userSummary[name] = { transactions: 0, tickets: 0, revenue: 0 }; userSummary[name].transactions++; userSummary[name].tickets += t.items.reduce((s, i) => s + i.qty, 0); userSummary[name].revenue += t.total; });
+        const userEntries = Object.entries(userSummary);
+        document.getElementById('reportUserSummary').innerHTML = userEntries.length === 0 ? '<tr><td class="text-center text-muted">Tidak ada data</td></tr>' : `<thead><tr><th>Petugas</th><th>Transaksi</th><th>Tiket</th><th>Omzet</th></tr></thead><tbody>${userEntries.map(([name, data]) => `<tr><td>${escapeHtml(name)}</td><td>${data.transactions}</td><td>${data.tickets}</td><td>${formatCurrency(data.revenue)}</td></tr>`).join('')}</tbody>`;
+
+        transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+        const reportBody = document.getElementById('reportTransactionsBody');
+        if (transactions.length === 0) reportBody.innerHTML = '<tr><td colspan="8" class="text-center text-muted" style="padding:20px;">Tidak ada transaksi</td></tr>';
+        else reportBody.innerHTML = transactions.map(t => {
+            const catNames = t.items.map(i => i.categoryName + ' x' + i.qty).join(', ');
+            const totalQty = t.items.reduce((s, i) => s + i.qty, 0);
+            return `<tr><td data-label="No. Tiket">${escapeHtml(t.ticketNumber)}</td><td data-label="Tanggal">${formatDate(t.date)} ${formatTime(t.date)}</td><td data-label="Pengunjung">${escapeHtml(t.visitorName)}</td><td data-label="Kategori">${escapeHtml(catNames)}</td><td data-label="Jml">${totalQty}</td><td data-label="Total">${formatCurrency(t.total)}</td><td data-label="Petugas">${escapeHtml(t.userName)}</td><td data-label="Status"><span class="badge ${t.status === 'PAID' ? 'badge-success' : 'badge-danger'}">${t.status === 'PAID' ? 'Lunas' : 'Batal'}</span></td></tr>`;
+        }).join('');
+    }
+
+    printReport() {
+        document.body.classList.remove('thermal-printing');
+        const printArea = document.getElementById('thermalPrint');
+        printArea.className = 'thermal-print';
+        printArea.innerHTML = '';
+        if (this._printStyleEl) this._printStyleEl.textContent = '';
+        window.print();
+    }
+
+    async renderCategories() {
+        if (this.currentUser.role !== 'admin') return;
+        const categories = (await this.db.getAll('ticketCategories')).sort((a, b) => a.name.localeCompare(b.name));
+        const tbody = document.getElementById('categoriesBody');
+        if (categories.length === 0) { tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted" style="padding:40px;">Belum ada kategori</td></tr>'; return; }
+        tbody.innerHTML = categories.map(c => `<tr><td data-label="Nama">${escapeHtml(c.name)}</td><td data-label="Harga">${formatCurrency(c.price)}</td><td data-label="Status"><span class="badge ${c.active ? 'badge-success' : 'badge-danger'}">${c.active ? 'Aktif' : 'Nonaktif'}</span></td><td data-label="Aksi"><div style="display:flex;gap:4px;flex-wrap:wrap;"><button class="btn btn-sm btn-secondary" onclick="app.editCategory('${c.id}')">Edit</button><button class="btn btn-sm btn-secondary" onclick="app.toggleCategory('${c.id}')">${c.active ? 'Nonaktif' : 'Aktif'}</button><button class="btn btn-sm btn-danger" onclick="app.deleteCategory('${c.id}')">Hapus</button></div></td></tr>`).join('');
+    }
+
+    async editCategory(id) {
+        if (this.currentUser.role !== 'admin') return;
+        let cat = null, isEdit = false;
+        if (id) { cat = await this.db.get('ticketCategories', id); isEdit = true; }
+        this.showModal(isEdit ? 'Edit Kategori' : 'Tambah Kategori', `<div class="form-group"><label>Nama Kategori</label><input type="text" id="catName" class="form-control" value="${cat ? escapeHtml(cat.name) : ''}" required></div><div class="form-group"><label>Harga (Rp)</label><input type="number" id="catPrice" class="form-control" value="${cat ? cat.price : ''}" min="0" required></div><div class="form-group"><label>Deskripsi</label><textarea id="catDesc" class="form-control">${cat ? escapeHtml(cat.description || '') : ''}</textarea></div>`, `<button class="btn btn-secondary" onclick="app.closeModal()">Batal</button><button class="btn btn-primary" onclick="app.saveCategory('${id || ''}')">Simpan</button>`);
+    }
+
+    async saveCategory(id) {
+        if (this.currentUser.role !== 'admin') return;
+        const name = document.getElementById('catName').value.trim();
+        const price = parseInt(document.getElementById('catPrice').value) || 0;
+        const description = document.getElementById('catDesc').value.trim();
+        if (!name) { showToast('Nama kategori harus diisi', 'error'); return; }
+        if (price <= 0) { showToast('Harga harus lebih dari 0', 'error'); return; }
+        const now = new Date().toISOString();
+        if (id) {
+            const cat = await this.db.get('ticketCategories', id);
+            cat.name = name; cat.price = price; cat.description = description; cat.updatedAt = now;
+            await this.db.put('ticketCategories', cat);
+            await this.auditLog('EDIT_CATEGORY', `Kategori "${name}" diubah`, id);
+            showToast('Kategori berhasil diperbarui', 'success');
+        } else {
+            const newCat = { id: generateId(), name, price, description, active: true, createdAt: now, updatedAt: now };
+            await this.db.add('ticketCategories', newCat);
+            await this.auditLog('CREATE_CATEGORY', `Kategori "${name}" ditambahkan`, newCat.id);
+            showToast('Kategori berhasil ditambahkan', 'success');
+        }
+        this.closeModal();
+        this.renderCategories();
+    }
+
+    async toggleCategory(id) {
+        if (this.currentUser.role !== 'admin') return;
+        const cat = await this.db.get('ticketCategories', id);
+        if (!cat) return;
+        cat.active = !cat.active; cat.updatedAt = new Date().toISOString();
+        await this.db.put('ticketCategories', cat);
+        await this.auditLog('EDIT_CATEGORY', `Kategori "${cat.name}" ${cat.active ? 'diaktifkan' : 'dinonaktifkan'}`, id);
+        showToast(`Kategori ${cat.active ? 'diaktifkan' : 'dinonaktifkan'}`, 'success');
+        this.renderCategories();
+    }
+
+    async deleteCategory(id) {
+        if (this.currentUser.role !== 'admin') return;
+        const transactions = await this.db.getAll('transactions');
+        const used = transactions.some(t => t.items.some(i => i.categoryId === id));
+        const cat = await this.db.get('ticketCategories', id);
+        if (!cat) return;
+        if (used) { showToast('Kategori sudah digunakan dalam transaksi. Gunakan nonaktifkan sebagai gantinya.', 'error'); return; }
+        this.showModal('Hapus Kategori', `<p>Apakah Anda yakin ingin menghapus kategori "<strong>${escapeHtml(cat.name)}</strong>"?</p>`, `<button class="btn btn-secondary" onclick="app.closeModal()">Batal</button><button class="btn btn-danger" onclick="app.confirmDeleteCategory('${id}')">Hapus</button>`);
+    }
+
+    async confirmDeleteCategory(id) {
+        if (this.currentUser.role !== 'admin') return;
+        const cat = await this.db.get('ticketCategories', id);
+        await this.db.delete('ticketCategories', id);
+        await this.auditLog('EDIT_CATEGORY', `Kategori "${cat?.name}" dihapus`, id);
+        this.closeModal();
+        showToast('Kategori berhasil dihapus', 'success');
+        this.renderCategories();
+    }
+
+    async renderUsers() {
+        if (this.currentUser.role !== 'admin') return;
+        const users = (await this.db.getAll('users')).sort((a, b) => a.name.localeCompare(b.name));
+        document.getElementById('usersBody').innerHTML = users.map(u => `<tr><td data-label="Nama">${escapeHtml(u.name)}</td><td data-label="Username">${escapeHtml(u.username)}</td><td data-label="Role"><span class="badge ${u.role === 'admin' ? 'badge-info' : 'badge-success'}">${u.role === 'admin' ? 'Admin' : 'User'}</span></td><td data-label="Status"><span class="badge ${u.active ? 'badge-success' : 'badge-danger'}">${u.active ? 'Aktif' : 'Nonaktif'}</span></td><td data-label="Aksi"><div style="display:flex;gap:4px;flex-wrap:wrap;"><button class="btn btn-sm btn-secondary" onclick="app.editUser('${u.id}')">Edit</button><button class="btn btn-sm btn-secondary" onclick="app.resetUserPassword('${u.id}')">Reset PW</button>${u.id !== this.currentUser.id ? `<button class="btn btn-sm btn-secondary" onclick="app.toggleUser('${u.id}')">${u.active ? 'Nonaktif' : 'Aktif'}</button><button class="btn btn-sm btn-danger" onclick="app.deleteUser('${u.id}')">Hapus</button>` : ''}</div></td></tr>`).join('');
+    }
+
+    async editUser(id) {
+        if (this.currentUser.role !== 'admin') return;
+        let user = null, isEdit = false;
+        if (id) { user = await this.db.get('users', id); isEdit = true; }
+        this.showModal(isEdit ? 'Edit Pengguna' : 'Tambah Pengguna', `<div class="form-group"><label>Nama Lengkap</label><input type="text" id="userName" class="form-control" value="${user ? escapeHtml(user.name) : ''}" required></div><div class="form-group"><label>Username</label><input type="text" id="userUsername" class="form-control" value="${user ? escapeHtml(user.username) : ''}" required ${isEdit ? 'readonly' : ''}></div><div class="form-group"><label>Password ${isEdit ? '(Kosongkan jika tidak diubah)' : ''}</label><input type="password" id="userPassword" class="form-control" ${isEdit ? '' : 'required'}></div><div class="form-group"><label>Konfirmasi Password</label><input type="password" id="userPasswordConfirm" class="form-control" ${isEdit ? '' : 'required'}></div><div class="form-group"><label>Role</label><select id="userRole" class="form-control"><option value="user" ${user && user.role === 'user' ? 'selected' : ''}>User</option><option value="admin" ${user && user.role === 'admin' ? 'selected' : ''}>Admin</option></select></div><div class="toggle-switch"><label>Status Aktif</label><div class="switch"><input type="checkbox" id="userActive" ${!user || user.active ? 'checked' : ''}><span class="switch-slider"></span></div></div>`, `<button class="btn btn-secondary" onclick="app.closeModal()">Batal</button><button class="btn btn-primary" onclick="app.saveUser('${id || ''}')">Simpan</button>`);
+    }
+
+    async saveUser(id) {
+        if (this.currentUser.role !== 'admin') return;
+        const name = document.getElementById('userName').value.trim();
+        const username = document.getElementById('userUsername').value.trim();
+        const password = document.getElementById('userPassword').value;
+        const passwordConfirm = document.getElementById('userPasswordConfirm').value;
+        const role = document.getElementById('userRole').value;
+        const active = document.getElementById('userActive').checked;
+        if (!name) { showToast('Nama harus diisi', 'error'); return; }
+        if (!username) { showToast('Username harus diisi', 'error'); return; }
+        const now = new Date().toISOString();
+        if (id) {
+            const user = await this.db.get('users', id);
+            user.name = name; user.role = role; user.active = active; user.updatedAt = now;
+            if (password) { if (password !== passwordConfirm) { showToast('Konfirmasi password tidak cocok', 'error'); return; } user.password = password; }
+            await this.db.put('users', user);
+            await this.auditLog('EDIT_USER', `User "${username}" diperbarui`, id);
+            showToast('Pengguna berhasil diperbarui', 'success');
+        } else {
+            if (!password) { showToast('Password harus diisi', 'error'); return; }
+            if (password !== passwordConfirm) { showToast('Konfirmasi password tidak cocok', 'error'); return; }
+            if (await this.db.getByIndex('users', 'username', username)) { showToast('Username sudah digunakan', 'error'); return; }
+            const newUser = { id: generateId(), username, password, name, role, active, createdAt: now, updatedAt: now };
+            await this.db.add('users', newUser);
+            await this.auditLog('CREATE_USER', `User "${username}" ditambahkan`, newUser.id);
+            showToast('Pengguna berhasil ditambahkan', 'success');
+        }
+        this.closeModal();
+        this.renderUsers();
+    }
+
+    async resetUserPassword(id) {
+        if (this.currentUser.role !== 'admin') return;
+        this.showModal('Reset Password', `<div class="form-group"><label>Password Baru</label><input type="password" id="resetNewPass" class="form-control" required></div><div class="form-group"><label>Konfirmasi Password Baru</label><input type="password" id="resetConfirmPass" class="form-control" required></div>`, `<button class="btn btn-secondary" onclick="app.closeModal()">Batal</button><button class="btn btn-primary" onclick="app.confirmResetPassword('${id}')">Reset</button>`);
+    }
+
+    async confirmResetPassword(id) {
+        if (this.currentUser.role !== 'admin') return;
+        const newPass = document.getElementById('resetNewPass').value;
+        const confirmPass = document.getElementById('resetConfirmPass').value;
+        if (!newPass) { showToast('Password baru harus diisi', 'error'); return; }
+        if (newPass !== confirmPass) { showToast('Konfirmasi password tidak cocok', 'error'); return; }
+        const user = await this.db.get('users', id);
+        if (!user) return;
+        user.password = newPass; user.updatedAt = new Date().toISOString(); user.isDefault = false;
+        await this.db.put('users', user);
+        await this.auditLog('RESET_PASSWORD', `Password user "${user.username}" direset`, id);
+        this.closeModal();
+        showToast('Password berhasil direset', 'success');
+    }
+
+    async toggleUser(id) {
+        if (this.currentUser.role !== 'admin') return;
+        const user = await this.db.get('users', id);
+        if (!user) return;
+        user.active = !user.active; user.updatedAt = new Date().toISOString();
+        await this.db.put('users', user);
+        await this.auditLog('EDIT_USER', `User "${user.username}" ${user.active ? 'diaktifkan' : 'dinonaktifkan'}`, id);
+        showToast(`User ${user.active ? 'diaktifkan' : 'dinonaktifkan'}`, 'success');
+        this.renderUsers();
+    }
+
+    async deleteUser(id) {
+        if (this.currentUser.role !== 'admin') return;
+        if (id === this.currentUser.id) { showToast('Tidak dapat menghapus akun sendiri', 'error'); return; }
+        const user = await this.db.get('users', id);
+        if (!user) return;
+        if (user.role === 'admin') {
+            const admins = (await this.db.getAll('users')).filter(u => u.role === 'admin' && u.active);
+            if (admins.length <= 1) { showToast('Tidak dapat menghapus admin terakhir', 'error'); return; }
+        }
+        this.showModal('Hapus Pengguna', `<p>Apakah Anda yakin ingin menghapus pengguna "<strong>${escapeHtml(user.name)}</strong>"?</p><p class="text-sm text-muted mt-2">Transaksi yang dibuat oleh pengguna ini akan tetap tersimpan.</p>`, `<button class="btn btn-secondary" onclick="app.closeModal()">Batal</button><button class="btn btn-danger" onclick="app.confirmDeleteUser('${id}')">Hapus</button>`);
+    }
+
+    async confirmDeleteUser(id) {
+        if (this.currentUser.role !== 'admin') return;
+        const user = await this.db.get('users', id);
+        await this.db.delete('users', id);
+        await this.auditLog('DELETE_USER', `User "${user?.username}" dihapus`, id);
+        this.closeModal();
+        showToast('Pengguna berhasil dihapus', 'success');
+        this.renderUsers();
+    }
+
+    async loadSettingsForm() {
+        if (this.currentUser.role !== 'admin') return;
+        const s = this.settings;
+        document.getElementById('settingTheme').value = s.theme || 'system';
+        document.getElementById('settingPrefix').value = s.ticketPrefix || 'TKT';
+        document.getElementById('settingSeparator').value = s.ticketSeparator || '-';
+        document.getElementById('settingDigits').value = s.ticketDigits || 4;
+        document.getElementById('settingPaperWidth').value = s.paperWidth || '58mm';
+        document.getElementById('settingTicketTitle').value = s.ticketTitle || '';
+        document.getElementById('settingPlaceName').value = s.placeName || '';
+        document.getElementById('settingAddress').value = s.address || '';
+        document.getElementById('settingPhone').value = s.phone || '';
+        document.getElementById('settingWebsite').value = s.website || '';
+        document.getElementById('settingFooter').value = s.footer || '';
+        document.getElementById('settingShowLogo').checked = s.showLogo !== false;
+        document.getElementById('settingShowAddress').checked = s.showAddress !== false;
+        document.getElementById('settingShowPhone').checked = s.showPhone === true;
+        document.getElementById('settingShowVisitor').checked = s.showVisitor !== false;
+        document.getElementById('settingShowOfficer').checked = s.showOfficer !== false;
+        document.getElementById('settingShowUnitPrice').checked = s.showUnitPrice !== false;
+        document.getElementById('settingShowPayment').checked = s.showPayment !== false;
+        document.getElementById('settingShowFooter').checked = s.showFooter !== false;
+        document.getElementById('settingFontSize').value = s.fontSize || 11;
+
+        const logoContainer = document.getElementById('logoPreviewContainer');
+        logoContainer.innerHTML = s.logo ? `<img src="${s.logo}" style="max-width:120px;max-height:120px;"><p class="text-sm text-muted mt-2">Klik untuk ganti logo</p>` : '<p class="text-muted text-sm">Klik untuk upload logo</p>';
+
+        document.querySelectorAll('[data-setting-tab]').forEach(tab => {
+            tab.onclick = () => {
+                document.querySelectorAll('[data-setting-tab]').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                document.querySelectorAll('.settings-tab-content').forEach(c => c.classList.add('hidden'));
+                const tabName = tab.getAttribute('data-setting-tab');
+                document.getElementById('settingTab' + tabName.charAt(0).toUpperCase() + tabName.slice(1)).classList.remove('hidden');
+                if (tabName === 'preview') this.updateTicketPreview();
+            };
+        });
+    }
+
+    async saveGeneralSettings() {
+        if (this.currentUser.role !== 'admin') return;
+        await this.saveAllSettings({ theme: document.getElementById('settingTheme').value, ticketPrefix: document.getElementById('settingPrefix').value.trim() || 'TKT', ticketSeparator: document.getElementById('settingSeparator').value.trim() || '-', ticketDigits: parseInt(document.getElementById('settingDigits').value) || 4, paperWidth: document.getElementById('settingPaperWidth').value });
+        this.applyTheme();
+        await this.auditLog('SETTING_CHANGE', 'Pengaturan umum diperbarui');
+        showToast('Pengaturan berhasil disimpan', 'success');
+    }
+
+    async saveTicketSettings() {
+        if (this.currentUser.role !== 'admin') return;
+        await this.saveAllSettings({ ticketTitle: document.getElementById('settingTicketTitle').value, placeName: document.getElementById('settingPlaceName').value, address: document.getElementById('settingAddress').value, phone: document.getElementById('settingPhone').value, website: document.getElementById('settingWebsite').value, footer: document.getElementById('settingFooter').value, showLogo: document.getElementById('settingShowLogo').checked, showAddress: document.getElementById('settingShowAddress').checked, showPhone: document.getElementById('settingShowPhone').checked, showVisitor: document.getElementById('settingShowVisitor').checked, showOfficer: document.getElementById('settingShowOfficer').checked, showUnitPrice: document.getElementById('settingShowUnitPrice').checked, showPayment: document.getElementById('settingShowPayment').checked, showFooter: document.getElementById('settingShowFooter').checked, fontSize: parseInt(document.getElementById('settingFontSize').value) || 11 });
+        await this.auditLog('SETTING_CHANGE', 'Pengaturan desain tiket diperbarui');
+        showToast('Pengaturan tiket berhasil disimpan', 'success');
+    }
+
+    updateTicketPreview() {
+        const s = this.settings;
+        s.ticketTitle = document.getElementById('settingTicketTitle').value || 'TIKETKU WISATA';
+        s.placeName = document.getElementById('settingPlaceName').value || 'Nama Tempat Wisata';
+        s.address = document.getElementById('settingAddress').value;
+        s.phone = document.getElementById('settingPhone').value;
+        s.website = document.getElementById('settingWebsite').value;
+        s.footer = document.getElementById('settingFooter').value;
+        s.showLogo = document.getElementById('settingShowLogo').checked;
+        s.showAddress = document.getElementById('settingShowAddress').checked;
+        s.showPhone = document.getElementById('settingShowPhone').checked;
+        s.showVisitor = document.getElementById('settingShowVisitor').checked;
+        s.showOfficer = document.getElementById('settingShowOfficer').checked;
+        s.showUnitPrice = document.getElementById('settingShowUnitPrice').checked;
+        s.showPayment = document.getElementById('settingShowPayment').checked;
+        s.showFooter = document.getElementById('settingShowFooter').checked;
+        s.fontSize = parseInt(document.getElementById('settingFontSize').value) || 11;
+
+        const dummyTx = { ticketNumber: 'TKT-20260915-0001', date: '2026-09-15T10:25:00', visitorName: 'Budi Santoso', visitorPhone: '08123456789', items: [{ categoryName: 'Dewasa', price: 25000, qty: 2, subtotal: 50000 }], total: 50000, amountReceived: 100000, change: 50000, userName: 'operator1' };
+        let html = '';
+        if (s.showLogo && s.logo) html += `<img src="${s.logo}" class="tp-logo">`;
+        html += `<div class="tp-center tp-bold" style="font-size:${s.fontSize+2}px;">${escapeHtml(s.ticketTitle)}</div>`;
+        html += `<div class="tp-center">${escapeHtml(s.placeName)}</div>`;
+        if (s.showAddress && s.address) html += `<div class="tp-center" style="font-size:${s.fontSize-1}px;">${escapeHtml(s.address)}</div>`;
+        if (s.phone) html += `<div class="tp-center" style="font-size:${s.fontSize-1}px;">${escapeHtml(s.phone)}</div>`;
+        if (s.website) html += `<div class="tp-center" style="font-size:${s.fontSize-1}px;">${escapeHtml(s.website)}</div>`;
+        html += '<div class="tp-double-line"></div>';
+        html += `<div>No Tiket : ${dummyTx.ticketNumber}</div><div>Tanggal : ${formatDate(dummyTx.date)}</div><div>Jam     : ${formatTime(dummyTx.date)}</div>`;
+        if (s.showVisitor) { html += '<div class="tp-line"></div><div>Pengunjung:</div>'; html += `<div class="tp-bold">${escapeHtml(dummyTx.visitorName)}</div>`; }
+        if (s.showPhone && dummyTx.visitorPhone) html += `<div>No. HP: ${escapeHtml(dummyTx.visitorPhone)}</div>`;
+        html += '<div class="tp-line"></div>';
+        dummyTx.items.forEach(item => {
+            if (s.showUnitPrice) { html += `<div>${escapeHtml(item.categoryName)}</div><div class="tp-row"><span>${item.qty} x ${formatCurrency(item.price)}</span><span>${formatCurrency(item.subtotal)}</span></div>`; }
+            else html += `<div class="tp-row"><span>${escapeHtml(item.categoryName)} x${item.qty}</span><span>${formatCurrency(item.subtotal)}</span></div>`;
+        });
+        html += '<div class="tp-line"></div>';
+        html += `<div class="tp-row tp-bold"><span>TOTAL</span><span>${formatCurrency(dummyTx.total)}</span></div>`;
+        if (s.showPayment) { html += `<div class="tp-row"><span>Tunai</span><span>${formatCurrency(dummyTx.amountReceived)}</span></div><div class="tp-row"><span>Kembali</span><span>${formatCurrency(dummyTx.change)}</span></div>`; }
+        if (s.showOfficer) { html += '<div class="tp-line"></div>'; html += `<div>Petugas: ${escapeHtml(dummyTx.userName)}</div>`; }
+        if (s.showFooter && s.footer) { html += '<div class="tp-line"></div>'; s.footer.split('\n').forEach(l => html += `<div class="tp-center">${escapeHtml(l)}</div>`); }
+        html += '<div class="tp-double-line"></div>';
+        document.getElementById('ticketPreviewArea').innerHTML = html;
+    }
+
+    async renderAuditLog() {
+        if (this.currentUser.role !== 'admin') return;
+        let logs = await this.db.getAll('auditLogs');
+        const filterAction = document.getElementById('auditFilterAction').value;
+        if (filterAction) logs = logs.filter(l => l.action === filterAction);
+        logs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        logs = logs.slice(0, 200);
+        const tbody = document.getElementById('auditLogBody');
+        if (logs.length === 0) { tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted" style="padding:40px;">Tidak ada log</td></tr>'; return; }
+        tbody.innerHTML = logs.map(l => `<tr><td data-label="Waktu">${formatDateTime(l.timestamp)}</td><td data-label="User">${escapeHtml(l.username)}</td><td data-label="Aksi"><span class="badge badge-info">${escapeHtml(l.action)}</span></td><td data-label="Keterangan">${escapeHtml(l.description)}</td></tr>`).join('');
+    }
+
+    loadProfile() {
+        document.getElementById('profileName').value = this.currentUser.name;
+        document.getElementById('profileUsername').value = this.currentUser.username;
+        document.getElementById('profileRole').value = this.currentUser.role === 'admin' ? 'Administrator' : 'User';
+    }
+
+    async changePassword() {
+        const oldPass = document.getElementById('profileOldPass').value;
+        const newPass = document.getElementById('profileNewPass').value;
+        const confirmPass = document.getElementById('profileConfirmPass').value;
+        if (!oldPass || !newPass || !confirmPass) { showToast('Semua field harus diisi', 'error'); return; }
+        if (oldPass !== this.currentUser.password) { showToast('Password lama salah', 'error'); return; }
+        if (newPass !== confirmPass) { showToast('Konfirmasi password baru tidak cocok', 'error'); return; }
+        if (newPass.length < 4) { showToast('Password baru minimal 4 karakter', 'error'); return; }
+        this.currentUser.password = newPass;
+        this.currentUser.updatedAt = new Date().toISOString();
+        this.currentUser.isDefault = false;
+        await this.db.put('users', this.currentUser);
+        document.getElementById('profileOldPass').value = '';
+        document.getElementById('profileNewPass').value = '';
+        document.getElementById('profileConfirmPass').value = '';
+        document.getElementById('defaultPasswordAlert').classList.add('hidden');
+        showToast('Password berhasil diubah', 'success');
+    }
+
+    async backupDatabase() {
+        if (this.currentUser.role !== 'admin') return;
+        const data = { version: APP_CONFIG.version, exportDate: new Date().toISOString(), users: await this.db.getAll('users'), ticketCategories: await this.db.getAll('ticketCategories'), transactions: await this.db.getAll('transactions'), settings: await this.db.getAll('settings'), auditLogs: await this.db.getAll('auditLogs'), counters: await this.db.getAll('counters') };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = `backup_tiketku_${getTodayStr()}.json`; a.click(); URL.revokeObjectURL(url);
+        await this.auditLog('BACKUP', 'Database di-backup');
+        showToast('Backup berhasil diunduh', 'success');
+    }
+
+    async restoreDatabase() {
+        if (this.currentUser.role !== 'admin') return;
+        this.showModal('Restore Database', `<p class="text-sm" style="color:var(--danger);">PERINGATAN: Seluruh data saat ini akan ditimpa dengan data dari file backup. Tindakan ini tidak dapat dibatalkan.</p><p class="text-sm mt-2">Apakah Anda yakin ingin melanjutkan?</p>`, `<button class="btn btn-secondary" onclick="app.closeModal()">Batal</button><button class="btn btn-danger" onclick="app.confirmRestore()">Lanjutkan</button>`);
+    }
+
+    async confirmRestore() { this.closeModal(); document.getElementById('restoreInput').click(); }
+
+    async processRestore(file) {
+        try {
+            const data = JSON.parse(await file.text());
+            for (const store of ['users', 'ticketCategories', 'transactions', 'settings', 'auditLogs', 'counters']) await this.db.clear(store);
+            if (data.users) for (const u of data.users) await this.db.put('users', u);
+            if (data.ticketCategories) for (const c of data.ticketCategories) await this.db.put('ticketCategories', c);
+            if (data.transactions) for (const t of data.transactions) await this.db.put('transactions', t);
+            if (data.settings) for (const s of data.settings) await this.db.put('settings', s);
+            if (data.auditLogs) for (const l of data.auditLogs) await this.db.put('auditLogs', l);
+            if (data.counters) for (const c of data.counters) await this.db.put('counters', c);
+            await this.loadSettings(); this.applyTheme();
+            await this.auditLog('RESTORE', 'Database di-restore dari backup');
+            showToast('Database berhasil di-restore', 'success');
+        } catch (err) { showToast('Gagal restore: ' + err.message, 'error'); }
+    }
+
+    async exportCsv() {
+        if (this.currentUser.role !== 'admin') return;
+        const transactions = await this.db.getAll('transactions');
+        let csv = 'No Tiket,Tanggal,Waktu,Pengunjung,No HP,Kategori,Jumlah,Harga Satuan,Subtotal,Total,Uang Diterima,Kembalian,Petugas,Status\n';
+        transactions.forEach(t => t.items.forEach(item => { csv += `"${t.ticketNumber}","${formatDate(t.date)}","${formatTime(t.date)}","${t.visitorName}","${t.visitorPhone || ''}","${item.categoryName}",${item.qty},${item.price},${item.subtotal},${t.total},${t.amountReceived},${t.change},"${t.userName}","${t.status}"\n`; }));
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = `transaksi_tiketku_${getTodayStr()}.csv`; a.click(); URL.revokeObjectURL(url);
+        await this.auditLog('BACKUP', 'Data transaksi di-export ke CSV');
+        showToast('Export CSV berhasil', 'success');
+    }
+
+    async importCsv() { if (this.currentUser.role !== 'admin') return; document.getElementById('importCsvInput').click(); }
+
+    showModal(title, body, footer) {
+        document.getElementById('modalTitle').textContent = title;
+        document.getElementById('modalBody').innerHTML = body;
+        document.getElementById('modalFooter').innerHTML = footer || '';
+        document.getElementById('modalOverlay').classList.add('active');
+    }
+    closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
+
+    setupEventListeners() {
+        document.getElementById('themeToggleBtn').addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            this.saveSetting('theme', next);
+        });
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (this.settings.theme === 'system') this.applyTheme(); });
+
+        // Tombol tambah item - gunakan method baru yang benar
+        document.getElementById('addItemBtn').addEventListener('click', async () => {
+            const allCategories = await this.db.getAll('ticketCategories');
+            const activeCategories = allCategories.filter(c => c.active);
+            if (activeCategories.length === 0) {
+                showToast('Tidak ada kategori tiket aktif', 'error');
+                return;
+            }
+            this._createTicketItemRow(activeCategories);
+            this._recalculate();
+        });
+
+        document.getElementById('txAmountReceived').addEventListener('input', () => this._recalculate());
+        document.getElementById('saveAndPrintBtn').addEventListener('click', () => this.saveTransaction(true));
+        document.getElementById('saveOnlyBtn').addEventListener('click', () => this.saveTransaction(false));
+
+        document.getElementById('txFilterDate').addEventListener('change', () => this.renderTransactions());
+        document.getElementById('txFilterStatus').addEventListener('change', () => this.renderTransactions());
+        document.getElementById('txFilterResetBtn').addEventListener('click', () => {
+            document.getElementById('txFilterDate').value = '';
+            document.getElementById('txFilterStatus').value = '';
+            this.renderTransactions();
+        });
+
+        document.getElementById('addCategoryBtn').addEventListener('click', () => this.editCategory(null));
+        document.getElementById('addUserBtn').addEventListener('click', () => this.editUser(null));
+
+        document.getElementById('reportPeriod').addEventListener('change', (e) => {
+            const isCustom = e.target.value === 'custom';
+            document.getElementById('reportDateStart').classList.toggle('hidden', !isCustom);
+            document.getElementById('reportDateEnd').classList.toggle('hidden', !isCustom);
+        });
+        document.getElementById('applyReportBtn').addEventListener('click', () => this.applyReport());
+        document.getElementById('printReportBtn').addEventListener('click', () => this.printReport());
+
+        document.getElementById('saveSettingsBtn').addEventListener('click', () => this.saveGeneralSettings());
+        document.getElementById('saveTicketSettingsBtn').addEventListener('click', () => this.saveTicketSettings());
+
+        document.getElementById('logoUploadArea').addEventListener('click', () => document.getElementById('logoInput').click());
+        document.getElementById('logoInput').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = async (ev) => {
+                await this.saveSetting('logo', ev.target.result);
+                document.getElementById('logoPreviewContainer').innerHTML = `<img src="${ev.target.result}" style="max-width:120px;max-height:120px;"><p class="text-sm text-muted mt-2">Klik untuk ganti logo</p>`;
+                showToast('Logo berhasil diupload', 'success');
+            };
+            reader.readAsDataURL(file);
+        });
+        document.getElementById('removeLogoBtn').addEventListener('click', async () => {
+            await this.saveSetting('logo', null);
+            document.getElementById('logoPreviewContainer').innerHTML = '<p class="text-muted text-sm">Klik untuk upload logo</p>';
+            showToast('Logo berhasil dihapus', 'success');
+        });
+
+        document.getElementById('refreshPreviewBtn').addEventListener('click', () => this.updateTicketPreview());
+        document.getElementById('testPrintBtn').addEventListener('click', () => {
+            this.printTicket({ ticketNumber: 'TKT-20260915-0001', date: new Date().toISOString(), visitorName: 'Budi Santoso', visitorPhone: '08123456789', items: [{ categoryName: 'Dewasa', price: 25000, qty: 2, subtotal: 50000 }], total: 50000, amountReceived: 100000, change: 50000, userName: this.currentUser.name });
+        });
+
+        document.getElementById('backupBtn').addEventListener('click', () => this.backupDatabase());
+        document.getElementById('restoreBtn').addEventListener('click', () => this.restoreDatabase());
+        document.getElementById('restoreInput').addEventListener('change', (e) => { const file = e.target.files[0]; if (file) this.processRestore(file); e.target.value = ''; });
+        document.getElementById('exportCsvBtn').addEventListener('click', () => this.exportCsv());
+        document.getElementById('importCsvBtn').addEventListener('click', () => this.importCsv());
+
+        document.getElementById('auditFilterAction').addEventListener('change', () => this.renderAuditLog());
+        document.getElementById('auditFilterResetBtn').addEventListener('click', () => { document.getElementById('auditFilterAction').value = ''; this.renderAuditLog(); });
+
+        document.getElementById('changePasswordBtn').addEventListener('click', () => this.changePassword());
+
+        document.getElementById('modalCloseBtn').addEventListener('click', () => this.closeModal());
+        document.getElementById('modalOverlay').addEventListener('click', (e) => { if (e.target === document.getElementById('modalOverlay')) this.closeModal(); });
+    }
+}
+
+const app = new App();
+app.init().catch(err => { console.error('Failed to initialize app:', err); alert('Gagal memuat aplikasi. Silakan refresh halaman.'); });
+</script>
+</body>
+</html>
